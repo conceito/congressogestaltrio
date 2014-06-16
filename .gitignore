@@ -2,8 +2,8 @@
 ## Eclipse
 #################
 
-.idea/
 _dev/
+.idea/
 vendor/
 upl/arqs/*
 upl/imgs/*
