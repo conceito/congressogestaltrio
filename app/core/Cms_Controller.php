@@ -737,5 +737,4 @@ class Cms_Controller extends MY_Controller {
             $this->namespace = '/' . trim($namespace, '/') . '/';
         }
     }
-
 }

@@ -6,6 +6,12 @@ class Trabalhos_model extends MY_Model
 {
 
     /**
+     * keep a copy of last model
+     * @var null
+     */
+    protected $thisModel = null;
+
+    /**
      * @var Gestalt\Congresso5
      */
     protected $congresso;
@@ -217,7 +223,7 @@ class Trabalhos_model extends MY_Model
         {
 
             $row['titulo_ori'] = $row['titulo'];
-            $row['titulo'] = strip_tags($row['titulo']);
+            $row['titulo']     = strip_tags($row['titulo']);
 
             if ($row['status'] == 1)
             {
@@ -338,7 +344,6 @@ class Trabalhos_model extends MY_Model
         $dados['txtmulti'] = $this->paginas_model->concatenateMultiContents();
         $dados['scripts']  = $scripts;
 
-
         $this->db->where('id', $var['id']);
         $sql = $this->db->update('cms_conteudo', $dados);
 
@@ -367,6 +372,11 @@ class Trabalhos_model extends MY_Model
      */
     function find($var)
     {
+        if ($this->thisModel !== null)
+        {
+            return $this->thisModel;
+        }
+
         $this->load->library('cms/cms_libs');
         $this->load->model('cms/paginas_model');
         $this->load->model('cms/calendario_model');
@@ -374,86 +384,82 @@ class Trabalhos_model extends MY_Model
         $dd = $this->cms_libs->conteudo_dados($var);
         if (!$dd)
         {
-            return false;
+            return $this->thisModel = false;
         }
 
         $this->load->library('cms_metadados');
 
-
         // percorre array
-        $saida = array();
+        $model = array();
         foreach ($dd as $chv => $vlr)
         {
-            if($chv == 'titulo')
+            if ($chv == 'titulo')
             {
-                $saida['titulo_txt'] = clean_html_field($vlr);
-//                $vlr = clean_html_field($vlr);
+                $model['titulo_txt'] = clean_html_field($vlr);
+                //                $vlr = clean_html_field($vlr);
             }
 
             // data
             if ($chv == 'dt_ini')
             {
-                $saida['dt1'] = formaPadrao($vlr);
+                $model['dt1'] = formaPadrao($vlr);
             }
             if ($chv == 'dt_fim')
             {
-                $saida['dt2'] = formaPadrao($vlr);
+                $model['dt2'] = formaPadrao($vlr);
             }
             // quantidade de imagens na galeria
             if ($chv == 'galeria')
             {
                 if (strlen($vlr) == 0)
                 {
-                    $saida['quantGal'] = 0;
+                    $model['quantGal'] = 0;
                 }
                 else
                 {
                     $array             = explode('|', $vlr);
-                    $saida['quantGal'] = count($array);
+                    $model['quantGal'] = count($array);
                 }
             }
             // trata horas
             if ($chv == 'hr_ini')
             {
-                $saida['hora1'] = substr($vlr, 0, 5);
+                $model['hora1'] = substr($vlr, 0, 5);
             }
             if ($chv == 'hr_fim')
             {
-                $saida['hora2'] = substr($vlr, 0, 5);
+                $model['hora2'] = substr($vlr, 0, 5);
             }
             // checkboxes dias da semana
             if ($chv == 'semana')
             {
-                $saida['cbSemana'] = $this->calendario_model->semanaCheckBox($vlr);
+                $model['cbSemana'] = $this->calendario_model->semanaCheckBox($vlr);
             }
             if ($chv == 'id')
             {
                 // pega grupo com seus parentes, se houver
                 $grupoParents          = $this->paginas_model->getGrupoParents($dd['grupo'], $dd['modulo_id']);
-                $saida['grupoParents'] = $grupoParents;
+                $model['grupoParents'] = $grupoParents;
 
                 $metas = $this->cms_metadados->getAllByContent($vlr);
 
-//                dd($metas);
+                //                dd($metas);
 
                 // eixo temático
-                $tema = $this->congresso->getTema(get_meta($metas, 'eixo_tematico', null, true));
-                $saida['eixo_tematico'] = $tema['title'];
+                $tema                   = $this->congresso->getTema(get_meta($metas, 'eixo_tematico', null, true));
+                $model['eixo_tematico'] = $tema['title'];
 
                 // modalidade
-                $moda = $this->congresso->getModalidade(get_meta($metas, 'modalidade', null, true));
-                $saida['modalidade'] = $moda['title'];;
+                $moda                = $this->congresso->getModalidade(get_meta($metas, 'modalidade', null, true));
+                $model['modalidade'] = $moda['title'];;
             }
 
-
-
             // coloca no array
-            $saida[$chv] = $vlr;
+            $model[$chv] = $vlr;
         }
 
-        //        mybug($saida);
-
-        return $saida;
+        // save
+        return $this->thisModel = $model;
     }
 
 
@@ -464,14 +470,15 @@ class Trabalhos_model extends MY_Model
      * @param $data
      * @return bool
      */
-    public function saveAutores($contentId, $data){
+    public function saveAutores($contentId, $data)
+    {
         $authorsData = serialize($data);
 
         $this->load->library('cms_metadados');
 
         $ret = $this->cms_metadados->saveByContent($contentId, array(
-            'meta_key' => 'authors',
-            'meta_type' => '',
+            'meta_key'   => 'authors',
+            'meta_type'  => '',
             'meta_value' => $authorsData,
         ));
 
@@ -491,7 +498,7 @@ class Trabalhos_model extends MY_Model
         $ret = $this->cms_metadados->getByContent($contentId, 'authors', null, true);
 
         $aAuthors = unserialize($ret);
-        if(! is_array($aAuthors))
+        if (!is_array($aAuthors))
         {
             return '';
         }
@@ -499,5 +506,59 @@ class Trabalhos_model extends MY_Model
         return $aAuthors;
     }
 
+
+    /**
+     * establishes relationship between users and job
+     * @param array $userIds
+     * @param null $contentId Optional
+     * @throws Exception
+     */
+    public function setAvaliadores($userIds = array(), $contentId = null)
+    {
+        if(! is_array($userIds))
+        {
+            throw new Exception("Os IDs dos avaliadores devem ser um array");
+        }
+
+        if (is_numeric($contentId))
+        {
+            $job = $this->find($contentId);
+        }
+        else if ($contentId === null && $this->thisModel !== null)
+        {
+            $job = $this->thisModel;
+        }
+        else
+        {
+            throw new Exception("Trabalho não encontrado com o ID {$contentId}");
+        }
+
+
+    }
+
+
+    /**
+     * return the appraisers of this job
+     * @param null $contentId Optional
+     * @throws Exception
+     */
+    public function getAvaliadores($contentId = null)
+    {
+        if (is_numeric($contentId))
+        {
+            $job = $this->find($contentId);
+        }
+        else if ($contentId === null && $this->thisModel !== null)
+        {
+            $job = $this->thisModel;
+        }
+        else
+        {
+            throw new Exception("Trabalho não encontrado com o ID {$contentId}");
+        }
+
+
+
+    }
 
 }

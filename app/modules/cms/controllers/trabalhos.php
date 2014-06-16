@@ -211,7 +211,8 @@ class Trabalhos extends Cms_Controller
         $this->setNewScript('angular/ng-sortable');
         $this->setNewScript('angular/textAngular/textAngular-sanitize.min');
         $this->setNewScript('angular/textAngular/textAngular.min');
-        $this->setNewScript('autores_app');
+        $this->setNewScript('trabalhos/trabalho.controllers');
+        $this->setNewScript('trabalhos/trabalho.services');
         $this->setNewEstyle(array('font-awesome.min'));
 
         /*

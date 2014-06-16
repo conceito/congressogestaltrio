@@ -5,6 +5,7 @@ upl/arqs/*
 upl/imgs/*
 nbproject/
 app/config/
+app/logs/*
 *.sublime-project
 *.sublime-workspace
 .project

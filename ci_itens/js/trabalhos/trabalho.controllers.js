@@ -4,6 +4,22 @@ angular.element(document).ready(function () {
 
 var app = angular.module('app', ['ui.sortable', 'textAngular']);
 
+app.controller('AvaliadoresController', ['$scope', 'Avaliadores', 'Avaliacoes',
+    function($scope, Avaliadores, Avaliacoes){
+
+        $scope.avaliadores = [];
+        $scope.avaliacoes = [];
+
+        Avaliacoes.all().success(function(res){
+            console.log('Avaliacoes', res.data);
+        });
+
+        Avaliadores.all().success(function(res){
+           console.log('Avaliadores', res.data);
+        });
+
+    }]);
+
 app.controller('AutoresController', ['$scope', '$timeout', 'Autores', 'uiSortableConfig',
     function ($scope, $timeout, Autores, uiSortableConfig) {
 
@@ -108,61 +124,3 @@ app.controller('AutoresController', ['$scope', '$timeout', 'Autores', 'uiSortabl
     }
 ]);
 
-
-app.factory('Autores', ['$http',
-    function ($http) {
-        var endpoint = CMS.base_url + 'cms/trabalhos/updateautores/';
-
-        return {
-            get: function (attrs) {
-
-                var url = endpoint + attrs.id;
-
-                return $http.get(url);
-
-//                return [
-//                    {
-//                        id: Date.now(),
-//                        ordem: 0,
-//                        nome: "nome",
-//                        curriculo: "meu texto",
-//                        status: 1
-//                    },
-//                    {
-//                        id: Date.now(),
-//                        ordem: 2,
-//                        nome: "nome 2",
-//                        curriculo: "meu texto",
-//                        status: 1
-//                    },
-//                    {
-//                        id: Date.now(),
-//                        ordem: 1,
-//                        nome: "nome 1",
-//                        curriculo: "meu texto",
-//                        status: 1
-//                    },
-//                    {
-//                        id: Date.now(),
-//                        ordem: 1,
-//                        nome: "header dia 22/33/2014 - quarta-feira",
-//                        curriculo: "meu texto",
-//                        status: 1
-//                    }
-//                ];
-            },
-            update: function (optionId, options) {
-                // console.log('ID', optionId);
-                // console.log('options', options);
-
-                var url = endpoint + optionId;
-
-                return $http.put(url, options, {
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded'
-                    }
-                });
-            }
-        };
-    }
-]);

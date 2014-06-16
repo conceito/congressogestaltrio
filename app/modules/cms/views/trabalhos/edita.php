@@ -163,8 +163,83 @@
 
     <div class="control-group box">
 
-        <label for="from" class="lb-full">Autor(es)</label>
+        <label for="" class="lb-full">Autor(es)</label>
         <a href="#" onclick="javascript:$('#tabs').tabs('select',1); return false;">Administrar autor(es)</a>
+
+    </div>
+    <!-- .control-group -->
+
+    <div class="control-group box" ng-controller="AvaliadoresController">
+
+        <label for="" class="lb-full">Avaliadores</label>
+        <a href="#">Adicionar avaliador</a>
+
+        <div class="avals-dropdown">
+
+            <div class="input-append">
+                <select name="" id="">
+                    <option value="">Nome do avaliador</option>
+                    <option value="">Nome do avaliador</option>
+                    <option value="">Nome do avaliador</option>
+                    <option value="">Nome do avaliador</option>
+                </select>
+                <a class="btn" href="">Adicionar</a>
+            </div>
+
+
+
+        </div>
+
+        <label for="">Avaliações em andamento</label>
+
+        <table class="table table-condensed">
+            <tr>
+                <td><span class="author-name">Nome do autor</span></td>
+                <td><a href=""><i class="icon-file"></i></a></td>
+                <td><a href=""><i class="icon-remove"></i></a></td>
+                <td><span class="label label-success">Veredicto</span></td>
+            </tr>
+            <tr>
+                <td><span class="author-name">Nome do autor</span></td>
+                <td><a href=""><i class="icon-file"></i></a></td>
+                <td><a href=""><i class="icon-remove"></i></a></td>
+                <td><span class="label label-important">Veredicto</span></td>
+
+            </tr>
+            <tr>
+                <td><span class="author-name">Nome do autor</span></td>
+                <td><a href=""><i class="icon-file"></i></a></td>
+                <td><a href=""><i class="icon-remove"></i></a></td>
+                <td><span class="label label-warning">Veredicto</span></td>
+
+            </tr>
+        </table>
+
+
+
+        <label for="">Avaliações finalizadas</label>
+        <table class="table table-condensed">
+            <tr>
+                <td><span class="author-name">Nome do autor</span></td>
+                <td><a href=""><i class="icon-file"></i></a></td>
+                <td><a href=""><i class="icon-remove"></i></a></td>
+                <td><span class="label label-success">Veredicto</span></td>
+            </tr>
+            <tr>
+                <td><span class="author-name">Nome do autor</span></td>
+                <td><a href=""><i class="icon-file"></i></a></td>
+                <td><a href=""><i class="icon-remove"></i></a></td>
+                <td><span class="label label-important">Veredicto</span></td>
+
+            </tr>
+            <tr>
+                <td><span class="author-name">Nome do autor</span></td>
+                <td><a href=""><i class="icon-file"></i></a></td>
+                <td><a href=""><i class="icon-remove"></i></a></td>
+                <td><span class="label label-warning">Veredicto</span></td>
+
+            </tr>
+        </table>
 
     </div>
     <!-- .control-group -->

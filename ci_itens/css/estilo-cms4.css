@@ -2670,3 +2670,39 @@ a.del:hover, a.del:active{
 .query-bar .title{
 	display: block;
 	margin-left: 27px;}
+	
+
+
+.avals-dropdown {
+    border-bottom: #eee solid 1px;
+    padding: 4px 0 4px 0;
+}
+
+.avals-dropdown .input-append {
+}
+
+.avals-dropdown .input-append > select {
+    float: left;
+    width: 74%;
+    display: inline-block;
+    border-radius: 3px 0 0 3px;
+}
+
+
+.avals-dropdown .input-append > .btn {
+    border-radius: 0 4px 4px 0;
+    margin-left: -1px;
+    padding: 3px 5px;
+}
+
+.aval-list {
+    margin: 0 0 10px;
+}
+.aval-list li{
+    display: block;
+    padding: 4px 0;
+    border-bottom: #eee solid 1px;
+}
+
+.aval-list .author-name{}
+.aval-list .label{}
