@@ -1,0 +1,42 @@
+<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed'); ?>
+
+ERROR - 2014-03-12 13:11:37 --> Could not find the language line "profiler_get"
+ERROR - 2014-03-12 13:11:37 --> Could not find the language line "profiler_get"
+ERROR - 2014-03-12 13:11:37 --> Could not find the language line "profiler_post"
+ERROR - 2014-03-12 13:11:37 --> Could not find the language line "profiler_post"
+ERROR - 2014-03-12 13:11:37 --> Could not find the language line "profiler_http_headers"
+ERROR - 2014-03-12 13:11:47 --> Could not find the language line "profiler_get"
+ERROR - 2014-03-12 13:11:47 --> Could not find the language line "profiler_get"
+ERROR - 2014-03-12 13:11:47 --> Could not find the language line "profiler_post"
+ERROR - 2014-03-12 13:11:47 --> Could not find the language line "profiler_post"
+ERROR - 2014-03-12 13:11:47 --> Could not find the language line "profiler_http_headers"
+ERROR - 2014-03-12 13:11:47 --> Could not find the language line "profiler_get"
+ERROR - 2014-03-12 13:11:47 --> Could not find the language line "profiler_get"
+ERROR - 2014-03-12 13:11:47 --> Could not find the language line "profiler_post"
+ERROR - 2014-03-12 13:11:47 --> Could not find the language line "profiler_post"
+ERROR - 2014-03-12 13:11:47 --> Could not find the language line "profiler_http_headers"
+ERROR - 2014-03-12 13:11:47 --> Could not find the language line "profiler_get"
+ERROR - 2014-03-12 13:11:47 --> Could not find the language line "profiler_get"
+ERROR - 2014-03-12 13:11:47 --> Could not find the language line "profiler_post"
+ERROR - 2014-03-12 13:11:47 --> Could not find the language line "profiler_post"
+ERROR - 2014-03-12 13:11:47 --> Could not find the language line "profiler_http_headers"
+ERROR - 2014-03-12 13:11:59 --> Could not find the language line "profiler_get"
+ERROR - 2014-03-12 13:11:59 --> Could not find the language line "profiler_get"
+ERROR - 2014-03-12 13:11:59 --> Could not find the language line "profiler_post"
+ERROR - 2014-03-12 13:11:59 --> Could not find the language line "profiler_post"
+ERROR - 2014-03-12 13:11:59 --> Could not find the language line "profiler_http_headers"
+ERROR - 2014-03-12 13:12:07 --> Severity: Notice  --> Undefined variable: titulo C:\wamp\www\meucms\app\modules\cms\controllers\banner.php 535
+ERROR - 2014-03-12 13:12:26 --> Severity: Notice  --> Undefined variable: num_rows C:\wamp\www\meucms\app\modules\cms\libraries\Cms_libs.php 603
+ERROR - 2014-03-12 13:12:26 --> Severity: Warning  --> getimagesize(C:\wamp\www\meucms/upl/arqs/acaoglobaljpg.jpg): failed to open stream: No such file or directory C:\wamp\www\meucms\app\modules\cms\libraries\Cms_libs.php 1203
+ERROR - 2014-03-12 13:12:26 --> Severity: Warning  --> filesize(): stat failed for C:\wamp\www\meucms/upl/arqs/acaoglobaljpg.jpg C:\wamp\www\meucms\app\modules\cms\libraries\Cms_libs.php 1227
+ERROR - 2014-03-12 13:12:32 --> Severity: Notice  --> Undefined variable: num_rows C:\wamp\www\meucms\app\modules\cms\libraries\Cms_libs.php 603
+ERROR - 2014-03-12 13:12:35 --> Could not find the language line "profiler_get"
+ERROR - 2014-03-12 13:12:35 --> Could not find the language line "profiler_get"
+ERROR - 2014-03-12 13:12:35 --> Could not find the language line "profiler_post"
+ERROR - 2014-03-12 13:12:35 --> Could not find the language line "profiler_post"
+ERROR - 2014-03-12 13:12:35 --> Could not find the language line "profiler_http_headers"
+ERROR - 2014-03-12 13:12:35 --> Could not find the language line "profiler_get"
+ERROR - 2014-03-12 13:12:35 --> Could not find the language line "profiler_get"
+ERROR - 2014-03-12 13:12:35 --> Could not find the language line "profiler_post"
+ERROR - 2014-03-12 13:12:35 --> Could not find the language line "profiler_post"
+ERROR - 2014-03-12 13:12:35 --> Could not find the language line "profiler_http_headers"

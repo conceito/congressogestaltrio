@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- <!DOCTYPE XMI SYSTEM "C:\Users\Conceito 11\AppData\Roaming\NetBeans\7.3\.uml\config\UML_2.0EMBT.dtd"> --><XMI xmlns:UML="omg.org/UML/1.4" xmi.version="2.0"> <XMI.header> <XMI.metamodel xmi.name="UML" xmi.version="1.4"/> <XMI.documentation> <XMI.exporter> Embarcadero's Describe </XMI.exporter> <XMI.exporterVersion> 6.0 </XMI.exporterVersion> </XMI.documentation> </XMI.header> <XMI.content> <UML:Project xmi.id="DCE.7A2FBD98-E4AD-7478-2A4A-DC37CEAAD414" mode="Design" defaultLanguage="UML" projVersion="6.1.4.837" name="Questionários"><UML:Element.ownedElement>
+<UML:Class xmi.id="DCE.D46A6838-E0AA-3396-C4BC-3C0CC65EC3C8" name="Survey" owner="DCE.7A2FBD98-E4AD-7478-2A4A-DC37CEAAD414"><UML:Element.presentation>
+</UML:Element.presentation></UML:Class>
+<UML:PartFacade xmi.id="DCE.A16F06F0-D507-8367-2830-E4D20C224BB1" name="Unnamed" owner="DCE.7A2FBD98-E4AD-7478-2A4A-DC37CEAAD414" typeConstraint="Class"><UML:Element.presentation>
+</UML:Element.presentation><UML:TypedElement.multiplicity>
+<UML:Multiplicity xmi.id="DCE.FD0C3795-FCD2-81E3-2A16-ED0FC3A9CCB9"/></UML:TypedElement.multiplicity></UML:PartFacade>
+<UML:Class xmi.id="DCE.37FE8764-FA18-0C6A-6970-2B0CC0C54667" name="survey_m" owner="DCE.7A2FBD98-E4AD-7478-2A4A-DC37CEAAD414" appliedStereotype="__uri_.\Questionários.etup#//*[@xmi.id=&quot;DCE.83A4BCFE-9A0A-8FC8-5D10-96B3D06ADE42&quot;]"><UML:Element.presentation>
+</UML:Element.presentation></UML:Class></UML:Element.ownedElement><UML:Package.packageImport>
+<UML:PackageImport xmi.id="DCE.A1CD5DB8-FA08-68D1-2903-251970C8386E" importingPackage="DCE.7A2FBD98-E4AD-7478-2A4A-DC37CEAAD414"><UML:PackageImport.importedPackage>
+<UML:Profile xmi.id="DCE.18FBCF3D-EF6F-CE77-8D5B-ACF28460364C" name="Unnamed" isCloned="true" href=".\Questionários.etup#//*[@xmi.id=&apos;DCE.18FBCF3D-EF6F-CE77-8D5B-ACF28460364C&apos;]" isDirty="false"/></UML:PackageImport.importedPackage><UML:Element.ownedElement>
+<UML:TaggedValue xmi.id="DCE.986E7547-E0C5-3E2E-1B05-C3BF637C759C" owner="DCE.A1CD5DB8-FA08-68D1-2903-251970C8386E" name="autoCreated">
+<UML:TaggedValue.dataValue>true</UML:TaggedValue.dataValue></UML:TaggedValue></UML:Element.ownedElement></UML:PackageImport></UML:Package.packageImport></UML:Project></XMI.content> </XMI>

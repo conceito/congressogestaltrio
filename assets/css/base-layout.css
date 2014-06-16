@@ -1,0 +1,571 @@
+/* ==========================================================================
+   HTML5 Boilerplate styles - h5bp.com (generated via initializr.com)
+   ========================================================================== */
+
+::-moz-selection {
+    background: #b3d4fc;
+    text-shadow: none;
+}
+
+::selection {
+    background: #b3d4fc;
+    text-shadow: none;
+}
+
+hr {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid #ccc;
+    margin: 1em 0;
+    padding: 0;
+}
+
+.chromeframe {
+    margin: 0.2em 0;
+    background: #ccc;
+    color: #000;
+    padding: 0.2em 0;
+}
+
+/* ==========================================================================
+   Helper classes
+   ========================================================================== */
+
+.ir {
+    background-color: transparent;
+    border: 0;
+    overflow: hidden;
+    *text-indent: -9999px;
+}
+
+.ir:before {
+    content: "";
+    display: block;
+    width: 0;
+    height: 100%;
+}
+
+.hidden {
+    display: none !important;
+    visibility: hidden;
+}
+
+.visuallyhidden {
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+}
+
+.visuallyhidden.focusable:active,
+.visuallyhidden.focusable:focus {
+    clip: auto;
+    height: auto;
+    margin: 0;
+    overflow: visible;
+    position: static;
+    width: auto;
+}
+
+.animated {
+  -webkit-animation-duration: 3s;
+  animation-duration: 3s;
+  -webkit-animation-delay: .4s;
+  animation-delay: .4s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+
+@-webkit-keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+.fadeOut {
+  -webkit-animation-name: fadeOut;
+  animation-name: fadeOut;
+}
+
+@-webkit-keyframes bounceOutUp {
+  0% {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+  }
+
+  20% {
+    opacity: 1;
+    -webkit-transform: translateY(20px);
+    transform: translateY(20px);
+  }
+
+  100% {
+    opacity: 0;
+    -webkit-transform: translateY(-2000px);
+    transform: translateY(-2000px);
+  }
+}
+
+@keyframes bounceOutUp {
+  0% {
+    -webkit-transform: translateY(0);
+    -ms-transform: translateY(0);
+    transform: translateY(0);
+  }
+
+  20% {
+    opacity: 1;
+    -webkit-transform: translateY(20px);
+    -ms-transform: translateY(20px);
+    transform: translateY(20px);
+  }
+
+  100% {
+    opacity: 0;
+    -webkit-transform: translateY(-2000px);
+    -ms-transform: translateY(-2000px);
+    transform: translateY(-2000px);
+  }
+}
+
+.bounceOutUp {
+  -webkit-animation-name: bounceOutUp;
+  animation-name: bounceOutUp;
+}
+
+
+
+
+/*
+|=================================================================================
+|=================================================================================
+|=================================================================================
+|=================================================================================
+|=================================================================================
+|    BASE
+|=================================================================================
+*/
+
+img{
+    max-width: 100%;
+    height: auto;
+}
+
+.page-title{
+    text-transform: uppercase;
+    margin: 1em 0 .7em;
+    color: #537E51;
+}
+
+
+label.error{
+    color: rgb(206, 9, 9);
+    font-size: 0.8em;
+}
+
+form .invalid input,
+form .invalid select,
+form .invalid textarea{
+    border-left: rgb(206, 9, 9) solid 2px;
+}
+
+
+.txt-verde{color: #537E51;}
+
+.txt-laranja{color: #BD6A00;}
+
+
+.intro{
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    background-color: #fff;
+    z-index: 99;
+    text-align: center;
+    vertical-align: middle;
+    
+}
+
+.ie8 .intro,
+.ie9 .intro{
+  display:none !important;
+  left: -9999999999999px
+  
+}
+
+.intro{
+    /* opacity:0; */
+}
+
+.intro .l{
+    display: table;
+    vertical-align: middle;
+    width: 100%;
+    height: 100%;
+    min-height: 100%;
+}
+
+.intro .td{
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.intro .l img{
+    /* vertical-align: middle; */
+    /* display: table-cell; */
+}
+
+
+
+/*
+|=================================================================================
+|=================================================================================
+|=================================================================================
+|=================================================================================
+|=================================================================================
+|    LAYOUT
+|---------------------------------------------------------------------------------
+*/
+
+#header{
+    min-height: 103px;
+    position: relative;
+    background-color: #fff;
+}
+
+
+.logo{
+    margin: 20px 0 30px;
+    text-align: center;
+}
+
+.sidebar{}
+
+
+.main{}
+
+
+#page{
+    margin: 0 0 30px;
+    position: relative;
+    z-index: 1;
+}
+
+#footer{
+    background-color: #faa32d;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    text-align: right;
+    color: #fff;
+}
+
+#footer p{
+    margin: 0;
+}
+
+#footer a:link,
+#footer a:visited{
+    color: #fff;
+    text-decoration: none;
+}
+
+
+#footer a:hover{
+    text-decoration: underline;
+}
+
+#main-menu{
+    width: 100%;
+    font-size: 1.1em;
+}
+
+#main-menu > li{
+    width: 31%;
+    background-color: #faa32d;
+    margin: 0 0 0 3%;
+}
+
+#main-menu > li:first-child{
+    margin-left: 0;
+}
+
+#main-menu > li > a:link,
+#main-menu > li > a:visited{
+    padding-top: 40px;
+}
+
+#main-menu > li > a::after{
+    content: '';
+    display: block;
+    width: 0;
+    height: 0;
+    border: #fff solid 6px;
+    border-top-color: transparent;
+    border-right-color: transparent;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+}
+
+#main-menu > li > a:hover{}
+
+.sf-arrows > li .sf-with-ul:after{
+    top: auto;
+    bottom: 15px;
+}
+
+
+.facebook{
+    position: absolute;
+    top: 10px;
+    right: -40px;
+}
+
+
+
+.count-box-bag {
+    font-size: 0.8em;
+    color: rgb(219, 123, 0);
+}
+
+.count-box-bag.overquota{
+    color: red;
+    font-weight: 700;
+}
+
+.count-box-bag .count-label {
+}
+
+.count-box-bag .countBox {
+}
+
+/* ==========================================================================
+   *
+   * mNNNNNNNNm     
+   * y````````y   
+   * y        s  
+   * y        s  
+   * y        s  
+   * y        s  
+   * d+++--+++d 
+   * NMMN//MMMN  
+   *
+   *
+   * PHONE ONLY !!!
+   ========================================================================== */
+
+@media all and (max-width: 768px) {
+
+.facebook{
+    display:none;
+}
+
+.logo{
+    margin: 50PX;
+}
+
+#main-menu > li{
+    margin: 0;
+    width: 33%;
+ 
+    font-size: 0.8em;
+}
+
+#main-menu > li > a:link,
+#main-menu > li > a:visited{
+    padding-top: 10px;
+}
+
+
+
+
+
+}/*/mediaquery*/
+
+/* ==========================================================================
+   *
+   * 
+   * +yyyyhhhhdddddddddms
+   * sh-..............-Nd      mmddddddddddddddddddddddddddmm
+   * sd`              .Md      M+                          /M
+   * sd`              .Md      M+                          /M
+   * sd`              .Md      M+                          /M
+   * sd`              .Md      M+                          /M
+   * yd`              .Md      M+                          /M
+   * yd`              .Md   +  M+                          /M
+   * yd`              .Md      MmddddddddddddddddddddddddddmM
+   * yd.              .Md      mNNNNNNNNNNNNNNNNNNNNNNNNNNNNm
+   * yd.              .Md      ```````````:dddddd/```````````
+   * sdhdddddddmmmmmmmmNy                /dMMMMMMm+          
+   *-------------------------------------------------------------------------
+   * TABLET and  UP
+   ========================================================================== */
+
+@media all and (min-width: 768px) {
+
+}/*/mediaquery*/
+
+/* ==========================================================================
+   *
+   *
+   * mmddddddddddddddddddddddddddmm
+   * M+                          /M
+   * M+                          /M
+   * M+                          /M
+   * M+                          /M
+   * M+                          /M
+   * M+                          /M
+   * MmddddddddddddddddddddddddddmM
+   * mNNNNNNNNNNNNNNNNNNNNNNNNNNNNm
+   * ```````````:dddddd/```````````
+   *           /dMMMMMMm+          
+   *-------------------------------------------------------------------------
+   * DESKTOP
+   ========================================================================== */
+
+@media all and (min-width: 980px) {
+
+#header{
+    position: fixed;
+    z-index: 2;
+    width: 617px;
+}
+
+#page{
+    margin-top: 120px;
+    min-height: 500px;
+}
+
+.logo{
+    position: fixed;
+    width: 280px;
+}
+
+}/*/mediaquery*/
+
+/* ==========================================================================
+   *
+   *
+   * mmddddddddddddddddddddddddddddddddddddmm
+   * M+                                    /M
+   * M+                                    /M
+   * M+                                    /M
+   * M+                                    /M
+   * M+                                    /M
+   * M+                                    /M
+   * MmddddddddddddddddddddddddddddddddddddmM
+   * mNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNm
+   * ````````````````:dddddd/````````````````
+   *             /dMMMMMMMMMMm+          
+   *-------------------------------------------------------------------------
+   * RUGE DESKTOP
+   ========================================================================== */
+
+@media all and (min-width: 1200px) {
+
+
+#header{
+    position: fixed;
+    z-index: 2;
+    width: 750px;
+}
+
+.logo{
+    width: 330px;
+}
+
+
+}/*/mediaquery*/
+
+/* ==========================================================================
+   Print styles
+   ========================================================================== */
+
+@media print {
+    * {
+        background: transparent !important;
+        color: #000 !important; /* Black prints faster: h5bp.com/s */
+        box-shadow:none !important;
+        text-shadow: none !important;
+    }
+
+    a,
+    a:visited {
+        text-decoration: underline;
+    }
+
+    a[href]:after {
+        content: " (" attr(href) ")";
+    }
+
+    abbr[title]:after {
+        content: " (" attr(title) ")";
+    }
+
+    /*
+     * Don't show links for images, or javascript/internal links
+     */
+
+    .ir a:after,
+    a[href^="javascript:"]:after,
+    a[href^="#"]:after {
+        content: "";
+    }
+
+    pre,
+    blockquote {
+        border: 1px solid #999;
+        page-break-inside: avoid;
+    }
+
+    thead {
+        display: table-header-group; /* h5bp.com/t */
+    }
+
+    tr,
+    img {
+        page-break-inside: avoid;
+    }
+
+    img {
+        max-width: 100% !important;
+    }
+
+    @page {
+        margin: 0.5cm;
+    }
+
+    p,
+    h2,
+    h3 {
+        orphans: 3;
+        widows: 3;
+    }
+
+    h2,
+    h3 {
+        page-break-after: avoid;
+    }
+}

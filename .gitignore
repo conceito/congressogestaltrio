@@ -2,8 +2,9 @@
 ## Eclipse
 #################
 
+.idea/
 _dev/
-tests/
+vendor/
 upl/arqs/*
 upl/imgs/*
 nbproject/

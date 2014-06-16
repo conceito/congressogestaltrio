@@ -1,0 +1,28 @@
+{
+    "name": "Congresso Gestalt Rio",
+    "description": "CMS bases on CodeIgniter.",
+    "keywords": ["framework", "codeigniter", "cms"],
+    "license": "MIT",
+    "require": {
+
+    },
+    "require-dev": {
+
+    },
+    "autoload": {
+        "classmap": [
+            "vendor/"
+        ],
+        "psr-0": {
+            "Gestalt\\": "app/"
+        }
+    },
+    "scripts": {
+    },
+    "config": {
+        "preferred-install": "dist",
+        "process-timeout": 4000,
+        "vendor-dir": "vendor"
+    },
+    "minimum-stability": "stable"
+}

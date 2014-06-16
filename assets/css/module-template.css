@@ -1,0 +1,293 @@
+/*
+|=================================================================================
+|=================================================================================
+|=================================================================================
+|=================================================================================
+|=================================================================================
+|    MODULES
+|---------------------------------------------------------------------------------
+*/
+/*
+|=================================================================================
+|    Modulo | ...
+|---------------------------------------------------------------------------------
+*/
+
+
+
+
+/*
+|=================================================================================
+|=================================================================================
+|=================================================================================
+|=================================================================================
+|=================================================================================
+|    TEMPLATE
+|---------------------------------------------------------------------------------
+*/
+
+.home h1{
+    display: none;
+}
+
+
+.page.comissoes table img{
+    width: 86%;
+    margin-top: 24px;
+}
+
+
+.page.comissoes table h3{
+    margin-top: 0;
+}
+
+
+.sf-menu ul li.menu-programacao{
+    background-color: rgb(255, 194, 0);
+    
+}
+.sf-menu ul li.menu-programacao a{
+    color: rgb(12, 88, 18);
+}
+
+
+
+.table-programacao{}
+
+
+.table-programacao tbody > tr > td:first-child{
+    background-color: rgb(228, 176, 85);
+    color: #fff;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.table-programacao tbody > tr > td:nth-child(2){
+    background-color: rgb(201, 228, 199);
+    vertical-align: middle;
+    text-transform: uppercase;
+}
+
+.table-programacao tbody > tr > td:nth-child(3),
+.table-programacao tbody > tr:nth-child(4) > td:nth-child(2){
+    background-color: rgb(216, 240, 214);
+}
+
+.table-programacao tbody > tr > td:nth-child(4),
+.table-programacao tbody > tr:nth-child(4) > td:nth-child(3){
+    background-color: rgb(237, 250, 236);
+    text-transform: uppercase;
+}
+
+.table-programacao tbody tr:first-child td{
+    background-color: rgb(226, 155, 4);
+    color: #fff;
+    border-left: #DFAB25 solid 1px;
+}
+
+
+.table-programacao tr td{
+    border-bottom: #fff solid 1px;
+    vertical-align: middle !important;
+}
+
+.table-valores {}
+
+.table-valores tbody > tr:nth-child(2),
+.table-valores tbody > tr:nth-child(3){
+    background-color: rgb(235, 245, 232);
+   
+}
+
+.table-valores tbody > tr:nth-child(4),
+.table-valores tbody > tr:nth-child(5){
+    background-color: rgb(236, 243, 188);
+   
+}
+
+.table-valores tbody > tr:nth-child(6),
+.table-valores tbody > tr:nth-child(7){
+    background-color: rgb(248, 235, 182);
+   
+}
+
+
+.table-valores tbody > tr:nth-child(2) > td:first-child{
+    background-color: rgb(215, 243, 208);
+    /* font-weight: 700; */
+    vertical-align: middle;
+}
+.table-valores tbody > tr:nth-child(4) > td:first-child{
+    background-color: rgb(220, 245, 175);
+    /* font-weight: 700; */
+    vertical-align: middle;
+}
+.table-valores tbody > tr:nth-child(6) > td:first-child{
+    background-color: rgb(255, 223, 142);
+    /* font-weight: 700; */
+    vertical-align: middle;
+}
+
+.table-valores tbody tr:first-child td{
+    background-color: #faa32d;
+    color: #fff;
+    border-left: #DFAB25 solid 1px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.table-valores tbody tr:first-child td p{
+    margin: 0;
+}
+
+.table-valores tbody tr:first-child td strong{
+    font-size: 1.5em;
+}
+
+
+.table-valores tr td{
+    border-bottom: #fff solid 1px;
+    vertical-align: middle !important;
+}
+
+
+.table-patrocinio {
+    width: 100%;
+}
+
+.table-patrocinio tr td{
+    vertical-align: top;
+    text-align: center;
+    padding: 0 0px 60px 0;
+    width: 50%;
+}
+
+.table-patrocinio  tr td:first-child{
+    /* text-align: right; */
+    /* padding: 0 10px 60px 0; */
+}
+
+
+
+
+#frm_inscricao{}
+#frm_inscricao fieldset{
+    margin: 0 0 30px;
+}
+
+#frm_inscricao fieldset:hover{
+    background-color: #FAFAFA;
+}
+#frm_inscricao legend{
+    background-color: #FFF;
+}
+
+
+#frm_inscricao .loading-uf{
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: rgba(255, 255, 236, 0.85);
+    width: 100%;
+    height: 100%;
+    z-index: 9;
+    text-align: center;
+    font-weight: 700;
+    padding: 6px;
+    text-shadow: 1px 1px 2px #fff;
+}
+
+
+#frm_trabalho {}
+#frm_trabalho .tab-content{
+    border: 1px solid #ddd;
+    border-top: none;
+    padding: 20px;
+    margin: 0 0 2em;
+}
+
+/* ==========================================================================
+   *
+   * mNNNNNNNNm     
+   * y````````y   
+   * y        s  
+   * y        s  
+   * y        s  
+   * y        s  
+   * d+++--+++d 
+   * NMMN//MMMN  
+   *
+   *
+   * PHONE ONLY !!!
+   ========================================================================== */
+
+@media all and (max-width: 768px) {
+
+}/*/mediaquery*/
+
+/* ==========================================================================
+   *
+   * 
+   * +yyyyhhhhdddddddddms
+   * sh-..............-Nd      mmddddddddddddddddddddddddddmm
+   * sd`              .Md      M+                          /M
+   * sd`              .Md      M+                          /M
+   * sd`              .Md      M+                          /M
+   * sd`              .Md      M+                          /M
+   * yd`              .Md      M+                          /M
+   * yd`              .Md   +  M+                          /M
+   * yd`              .Md      MmddddddddddddddddddddddddddmM
+   * yd.              .Md      mNNNNNNNNNNNNNNNNNNNNNNNNNNNNm
+   * yd.              .Md      ```````````:dddddd/```````````
+   * sdhdddddddmmmmmmmmNy                /dMMMMMMm+          
+   *-------------------------------------------------------------------------
+   * TABLET and  UP
+   ========================================================================== */
+
+@media all and (min-width: 768px) {
+
+}/*/mediaquery*/
+
+/* ==========================================================================
+   *
+   *
+   * mmddddddddddddddddddddddddddmm
+   * M+                          /M
+   * M+                          /M
+   * M+                          /M
+   * M+                          /M
+   * M+                          /M
+   * M+                          /M
+   * MmddddddddddddddddddddddddddmM
+   * mNNNNNNNNNNNNNNNNNNNNNNNNNNNNm
+   * ```````````:dddddd/```````````
+   *           /dMMMMMMm+          
+   *-------------------------------------------------------------------------
+   * DESKTOP
+   ========================================================================== */
+
+@media all and (min-width: 980px) {
+
+}/*/mediaquery*/
+
+/* ==========================================================================
+   *
+   *
+   * mmddddddddddddddddddddddddddddddddddddmm
+   * M+                                    /M
+   * M+                                    /M
+   * M+                                    /M
+   * M+                                    /M
+   * M+                                    /M
+   * M+                                    /M
+   * MmddddddddddddddddddddddddddddddddddddmM
+   * mNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNm
+   * ````````````````:dddddd/````````````````
+   *             /dMMMMMMMMMMm+          
+   *-------------------------------------------------------------------------
+   * RUGE DESKTOP
+   ========================================================================== */
+
+@media all and (min-width: 1281px) {
+
+}/*/mediaquery*/
