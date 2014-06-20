@@ -1,96 +1,237 @@
 <?php
 
+use Cms\Notifications\EvaluationInviteNotification;
+
 class Avaliador_model extends MY_Model
 {
 
-    /**
-     * store the last user got by find()
-     * @var null
-     */
-    protected $userFound = null;
+	/**
+	 * store the last user got by find()
+	 * @var null
+	 */
+	protected $userFound = null;
 
-    /**
-     * @var int
-     */
-    protected $avalCategoryId = 13;
+	/**
+	 * @var int
+	 */
+	protected $avalCategoryId = 13;
 
-    public function __construct()
-    {
-        $this->load->library(array('cms_usuarios'));
-    }
+	public function __construct()
+	{
+		$this->load->library(array('cms_usuario'));
+		$this->load->model('cms/trabalhos_model', 'trabalho');
+	}
 
-    public function doLogin()
-    {
+	public function doLogin()
+	{
 
-    }
+	}
 
-    public function doLogout()
-    {
+	public function doLogout()
+	{
 
-    }
+	}
 
-    public function find($id)
-    {
-        if ($this->userFound !== null)
-        {
-            return $this->decorateUser($this->userFound);
-        }
+	public function find($id)
+	{
+		if ($this->userFound !== null)
+		{
+			return $this->decorateUser($this->userFound);
+		}
 
-        $qUser = $this->db->where('id', $id)->get('cms_usuarios');
+		$qUser = $this->db->where('id', $id)->get('cms_usuarios');
 
-        if ($qUser->num_rows() == 0)
-        {
-            return $this->userFound = null;
-        }
+		if ($qUser->num_rows() == 0)
+		{
+			return $this->userFound = null;
+		}
 
-        $this->userFound = $qUser->row_array();
+		$this->userFound = $qUser->row_array();
 
-        return $this->decorateUser($this->userFound);
+		return $this->decorateUser($this->userFound);
 
-    }
+	}
 
-    public function decorateCollection($users = array())
-    {
-        if (!is_array($users))
-        {
-            return null;
-        }
-        $collection = array();
+	public function decorateCollection($users = array())
+	{
+		if (!is_array($users))
+		{
+			return null;
+		}
+		$collection = array();
 
-        foreach ($users as $u)
-        {
-            $collection[] = $this->decorateUser($u);
-        }
+		foreach ($users as $u)
+		{
+			$collection[] = $this->decorateUser($u);
+		}
 
-        return $collection;
-    }
+		return $collection;
+	}
 
-    public function decorateUser($user)
-    {
-        return $user;
-    }
+	public function decorateUser($user)
+	{
+		return $user;
+	}
 
-    public function all()
-    {
-        $qUsers = $this->db->where('grupo', $this->avalCategoryId)
-            ->where('status', 1)
-            ->get('cms_usuarios');
+	/**
+	 * retrieve all job evaluators
+	 *
+	 * @return array|null
+	 */
+	public function all()
+	{
+		$qUsers = $this->db->where('grupo', $this->avalCategoryId)
+			->where('status', 1)
+			->get('cms_usuarios');
 
-        if ($qUsers->num_rows() == 0)
-        {
-            return null;
-        }
+		if ($qUsers->num_rows() == 0)
+		{
+			return null;
+		}
 
-        return $this->decorateCollection($qUsers->result_array());
-    }
+		return $this->decorateCollection($qUsers->result_array());
+	}
 
-    public function update($id, $data = array())
-    {
+	public function update($id, $data = array())
+	{
 
-    }
+	}
 
-    public function getOwnJobs()
-    {
 
-    }
+	/**
+	 * send invite to user to evaluate a job
+	 * - add relationship
+	 * - send email
+	 *
+	 * @param $jobId
+	 * @param $userId
+	 * @return bool
+	 * @throws Exception
+	 */
+	public function sendInvite($jobId, $userId)
+	{
+		if (!is_numeric($jobId) || !is_numeric($userId))
+		{
+			throw new Exception("ID do trabalho ou avalidor não está no formato correto.");
+		}
+
+		// get user, save memory
+		$user = $this->find($userId);
+
+		// check if the evaluator is already evaluating this job
+		$evaluations = $this->getEvaluationsByUser($userId, $jobId);
+
+		if ($evaluations)
+		{
+			throw new Exception("Usuário já está avaliando.");
+
+			return false;
+		}
+
+		// do relationship
+		$evaluationId = $this->createJobEvaluation($userId, $jobId);
+
+		// send notification
+		$notify = new EvaluationInviteNotification();
+		$notify->setUsers(array($user));
+		$notify->debug();
+		$notify->send();
+
+		// return
+		return $evaluationId;
+
+	}
+
+
+	/**
+	 * create relationship row
+	 *
+	 * @param $userId
+	 * @param $jobId
+	 * @return int Evaluation ID
+	 */
+	public function createJobEvaluation($userId, $jobId)
+	{
+		// create relationship
+		$eval['usuario_id']  = $userId;
+		$eval['conteudo_id'] = $jobId;
+		$eval['tipo']        = 'avaliacao';
+		$eval['valor']       = 0;
+		$eval['data']        = date("Y-m-d H:i:s");
+		$eval['status']      = 2;
+
+		$this->db->insert('cms_conteudo_rel', $eval);
+
+		$evalId = $this->db->insert_id();
+
+		$eval['id'] = $evalId;
+
+		// create evaluation form row
+		$this->createFormEvaluation($eval);
+
+		return $evalId;
+
+	}
+
+	/**
+	 * create row for evaluation form
+	 *
+	 * @param array $eval Job evaluation pivot
+	 * @return object
+	 */
+	public function createFormEvaluation($eval)
+	{
+		// get job details
+		$job = $this->trabalho->find($eval['conteudo_id']);
+
+		$form['titulo'] = 'Formulário de avaliação';
+		$form['dt_ini'] = date("Y-m-d");
+		$form['hr_ini'] = date("H:i:s");
+		$form['txt'] = '';
+		$form['txtmulti'] = '';
+		$form['rel'] = $eval['id'];
+		$form['modulo_id'] = $job['modulo_id'];
+		$form['tipo'] = 'form-avaliacao';
+		$form['status'] = 1;
+
+		return $this->db->insert('cms_conteudo', $form);
+
+	}
+
+	/**
+	 * retrieve evaluations by user
+	 *
+	 * @param null $userId If null get the in memory
+	 * @param null $jobId If null return for all jobs
+	 * @return bool|array
+	 */
+	public function getEvaluationsByUser($userId = null, $jobId = null)
+	{
+		if ($userId === null && $this->userFound)
+		{
+			$user = $this->userFound;
+		}
+		else
+		{
+			$user = $this->find($userId);
+		}
+
+		// get all
+		$this->db->where('usuario_id', $user['id']);
+
+		if ($jobId)
+		{
+			$this->db->where('conteudo_id', $jobId);
+		}
+
+		$this->db->where('tipo', 'avaliacao');
+		$qEvaluations = $this->db->get('cms_conteudo_rel');
+
+		if ($qEvaluations->num_rows() == 0)
+		{
+			return false;
+		}
+
+		return $qEvaluations->result_array();
+	}
 }

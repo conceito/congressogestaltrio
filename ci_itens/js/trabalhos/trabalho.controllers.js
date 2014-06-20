@@ -4,22 +4,61 @@ angular.element(document).ready(function () {
 
 var app = angular.module('app', ['ui.sortable', 'textAngular']);
 
+/**
+ * tab Dados do trabalho, box Avaliadores
+ */
 app.controller('AvaliadoresController', ['$scope', 'Avaliadores', 'Avaliacoes',
     function($scope, Avaliadores, Avaliacoes){
 
+        $scope.avaliador = {};
         $scope.avaliadores = [];
+	    $scope.toggleAvaliadorDropdown = false;
+
         $scope.avaliacoes = [];
 
+	    /**
+	     * populate avaliadores combobox
+	     */
+	    Avaliadores.all().success(function(res){
+		    if(res.error){
+			    alert(res.msg);
+		    }
+		    else {
+			    $scope.avaliadores = res.data;
+		    }
+	    });
+
+	    /**
+	     * list avaliações. Done and undone
+	     */
         Avaliacoes.all().success(function(res){
             console.log('Avaliacoes', res.data);
         });
 
-        Avaliadores.all().success(function(res){
-           console.log('Avaliadores', res.data);
-        });
+
+
+	    $scope.sendAvaliadorInvite = function(){
+		  // get selected
+		    var avaliador = $scope.avaliador;
+		    console.log('======== avaliador ===========');
+		    console.log(avaliador);
+		    Avaliadores.sendInvite(avaliador, CMS.trabalho.id).then(function(res){
+			    if(res.data.error){
+				    alert(res.data.msg);
+			    } else {
+				    console.log('======== send invite response ===========');
+				    console.log(res.data.data);
+			    }
+		    });
+	    };
+
 
     }]);
 
+
+/**
+ * tab Autores
+ */
 app.controller('AutoresController', ['$scope', '$timeout', 'Autores', 'uiSortableConfig',
     function ($scope, $timeout, Autores, uiSortableConfig) {
 

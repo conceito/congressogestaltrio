@@ -28,6 +28,16 @@ class Trabalhos extends Cms_Controller
     }
 
 
+	public function test()
+	{
+//		$this->load->model('cms/avaliador_model', 'ava');
+//		$notify = new \Cms\Notifications\EvaluationInviteNotification();
+//		$notify->setUsers($this->ava->find(16));
+//		$notify->debug();
+//		$notify->send();
+	}
+
+
     /**
      * list of rows
      */

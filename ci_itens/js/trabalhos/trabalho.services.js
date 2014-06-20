@@ -67,7 +67,10 @@ app.factory('Avaliadores', ['$http', function($http){
 
             var url = endpoint + 'all';
             return $http.get(url);
-        }
+        },
+	    sendInvite: function(avaliador, jobId){
+		    return $http.post(endpoint + 'invite', {jobid: jobId, userid: avaliador.id});
+	    }
     };
 
 }]);

@@ -169,21 +169,22 @@
     </div>
     <!-- .control-group -->
 
+
+
+
     <div class="control-group box" ng-controller="AvaliadoresController">
 
-        <label for="" class="lb-full">Avaliadores</label>
-        <a href="#">Adicionar avaliador</a>
+        <label for="" class="lb-full">Avaliações</label>
+        <a href="" ng-click="toggleAvaliadorDropdown = !toggleAvaliadorDropdown">Adicionar avaliador</a>
 
-        <div class="avals-dropdown">
+        <div class="avals-dropdown" ng-show="toggleAvaliadorDropdown">
 
             <div class="input-append">
-                <select name="" id="">
-                    <option value="">Nome do avaliador</option>
-                    <option value="">Nome do avaliador</option>
-                    <option value="">Nome do avaliador</option>
-                    <option value="">Nome do avaliador</option>
+<!--	            label group by group for (key, value) in object-->
+                <select ng-model="avaliador" ng-options="avaliador.nome for (idx, avaliador) in avaliadores">
+	                <option value="">Escolha</option>
                 </select>
-                <a class="btn" href="">Adicionar</a>
+                <a class="btn" href="" ng-click="sendAvaliadorInvite()">Adicionar</a>
             </div>
 
 

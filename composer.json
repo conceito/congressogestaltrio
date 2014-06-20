@@ -14,7 +14,8 @@
             "vendor/"
         ],
         "psr-0": {
-            "Gestalt\\": "app/"
+            "Gestalt\\": "app/",
+            "Cms\\": "app/modules/cms/"
         }
     },
     "scripts": {
