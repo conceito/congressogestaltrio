@@ -13,6 +13,7 @@ class Api_avaliadores extends Api_Controller
 	{
 		parent::__construct();
 		$this->load->model('cms/avaliador_model', 'avaliador');
+		$this->load->model('cms/avaliacao_model', 'avaliacao');
 	}
 
 	public function all()
@@ -47,10 +48,12 @@ class Api_avaliadores extends Api_Controller
 
 		try
 		{
-			$invite = $this->avaliador->sendInvite($jobId, $userId);
+			$evaluationId = $this->avaliador->sendInvite($jobId, $userId);
 
-			if($invite){
-				echo $this->responseOk(array(), 'Convite enviado.');
+			if($evaluationId){
+
+				$evaluation = $this->avaliacao->find($evaluationId);
+				echo $this->responseOk($evaluation, 'Convite enviado.');
 			} else {
 				echo $this->responseError("Houve um erro ao enviar avaliação");
 			}

@@ -193,53 +193,53 @@
 
         <label for="">Avaliações em andamento</label>
 
+	    <p ng-if="!avaliacoes.awaiting.length">Não há.</p>
+
         <table class="table table-condensed">
-            <tr>
-                <td><span class="author-name">Nome do autor</span></td>
-                <td><a href=""><i class="icon-file"></i></a></td>
-                <td><a href=""><i class="icon-remove"></i></a></td>
-                <td><span class="label label-success">Veredicto</span></td>
+            <tr ng-repeat="ava in avaliacoes.awaiting" ng-show="ava.status != 0">
+                <td><span class="author-name">{{ ava.usuario_nome }}</span></td>
+	            <td>{{ ava.form_dt_ini }}</td>
+                <td><a href="" ng-click="removeAvaliacao(ava, 'awaiting')" title="remover avaliação"><i
+			                class="icon-remove"></i></a></td>
             </tr>
-            <tr>
-                <td><span class="author-name">Nome do autor</span></td>
-                <td><a href=""><i class="icon-file"></i></a></td>
-                <td><a href=""><i class="icon-remove"></i></a></td>
-                <td><span class="label label-important">Veredicto</span></td>
 
-            </tr>
-            <tr>
-                <td><span class="author-name">Nome do autor</span></td>
-                <td><a href=""><i class="icon-file"></i></a></td>
-                <td><a href=""><i class="icon-remove"></i></a></td>
-                <td><span class="label label-warning">Veredicto</span></td>
-
-            </tr>
         </table>
 
 
 
         <label for="">Avaliações finalizadas</label>
+
+	    <p ng-if="!avaliacoes.finished.length">Não há.</p>
+
         <table class="table table-condensed">
-            <tr>
-                <td><span class="author-name">Nome do autor</span></td>
-                <td><a href=""><i class="icon-file"></i></a></td>
-                <td><a href=""><i class="icon-remove"></i></a></td>
-                <td><span class="label label-success">Veredicto</span></td>
-            </tr>
-            <tr>
-                <td><span class="author-name">Nome do autor</span></td>
-                <td><a href=""><i class="icon-file"></i></a></td>
-                <td><a href=""><i class="icon-remove"></i></a></td>
-                <td><span class="label label-important">Veredicto</span></td>
+            <tr ng-repeat="ava in avaliacoes.finished" ng-show="ava.status != 0">
+                <td><span class="author-name">{{ ava.usuario_nome }}</span></td>
 
-            </tr>
-            <tr>
-                <td><span class="author-name">Nome do autor</span></td>
-                <td><a href=""><i class="icon-file"></i></a></td>
-                <td><a href=""><i class="icon-remove"></i></a></td>
-                <td><span class="label label-warning">Veredicto</span></td>
+                <td><span class="label label-success" ng-class="{'label-success': ava.valor == 10,
+                'label-important': ava.valor == 5, 'label-warning': ava.valor == 0
+                }" title="{{ ava.valor_label }}">{{ ava.valor_label }}</span></td>
 
+
+
+	            <td><a href="" title="ver avaliação" ng-click="openAvaliacao(ava)"><i
+				            class="icon-file"></i></a></td>
+	            <td><a href="" ng-click="removeAvaliacao(ava, 'finished')" title="remover avaliação"><i
+				            class="icon-remove"></i></a></td>
             </tr>
+<!--            <tr>-->
+<!--                <td><span class="author-name">Nome do autor</span></td>-->
+<!--                <td><a href=""><i class="icon-file"></i></a></td>-->
+<!--                <td><a href=""><i class="icon-remove"></i></a></td>-->
+<!--                <td><span class="label label-important">Veredicto</span></td>-->
+<!---->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <td><span class="author-name">Nome do autor</span></td>-->
+<!--                <td><a href=""><i class="icon-file"></i></a></td>-->
+<!--                <td><a href=""><i class="icon-remove"></i></a></td>-->
+<!--                <td><span class="label label-warning">Veredicto</span></td>-->
+<!---->
+<!--            </tr>-->
         </table>
 
     </div>

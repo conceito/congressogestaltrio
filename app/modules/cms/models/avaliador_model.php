@@ -20,6 +20,7 @@ class Avaliador_model extends MY_Model
 	{
 		$this->load->library(array('cms_usuario'));
 		$this->load->model('cms/trabalhos_model', 'trabalho');
+//		$this->load->model('cms/avaliacao_model', 'avaliacao');
 	}
 
 	public function doLogin()
@@ -134,11 +135,16 @@ class Avaliador_model extends MY_Model
 		// send notification
 		$notify = new EvaluationInviteNotification();
 		$notify->setUsers(array($user));
-		$notify->debug();
+
+//		if(ENVIRONMENT == 'development'){
+			$notify->debug();
+//		}
+
 		$notify->send();
 
 		// return
 		return $evaluationId;
+//		return $this->avaliacao->find($evaluationId);
 
 	}
 
@@ -225,6 +231,7 @@ class Avaliador_model extends MY_Model
 		}
 
 		$this->db->where('tipo', 'avaliacao');
+		$this->db->where('status !=', 0);
 		$qEvaluations = $this->db->get('cms_conteudo_rel');
 
 		if ($qEvaluations->num_rows() == 0)

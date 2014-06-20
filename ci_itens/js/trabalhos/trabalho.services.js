@@ -89,7 +89,13 @@ app.factory('Avaliacoes', ['$http', function($http){
             var id = (contentId) ? contentId : CMS.trabalho.id;
             var url = endpoint + 'all/contentId:' + id;
             return $http.get(url);
-        }
+        },
+
+	    remove: function(ava){
+		    var id = (ava.id) ? ava.id : null;
+		    var url = endpoint + 'remove/' + id;
+		    return $http.get(url);
+	    }
     };
 
 }]);

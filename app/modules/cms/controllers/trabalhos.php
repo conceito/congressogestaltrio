@@ -30,12 +30,12 @@ class Trabalhos extends Cms_Controller
 
 	public function test()
 	{
-//		$this->load->model('cms/avaliador_model', 'ava');
-//		$notify = new \Cms\Notifications\EvaluationInviteNotification();
-//		$notify->setUsers($this->ava->find(16));
-//		$notify->debug();
-//		$notify->send();
+		$this->load->model('cms/avaliacao_model', 'ava');
+		$a = $this->ava->allByContent(238);
+//		$a = $this->ava->find(2);
+		dd($a);
 	}
+
 
 
     /**
