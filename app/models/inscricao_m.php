@@ -401,11 +401,15 @@ class Inscricao_m extends CI_Model
 
     public function renewPasswordForUserEmail($email = '')
     {
+	    $this->load->library('cms_usuario');
         // generate new hash
         $newPass = rand(111111, 999999);
 
+
+
         // update table
-        $user = $this->cms_usuario->get(array('email' => $email));
+        $user = $this->cms_usuario->get(array('email' => trim($email)));
+
         if (!$user)
         {
             return 'Usuário não encontrado.';

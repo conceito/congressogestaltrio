@@ -66,7 +66,7 @@ app.controller('AvaliadoresController', ['$scope', 'Avaliadores', 'Avaliacoes',
 		};
 
 		$scope.openAvaliacao = function(ava){
-			$.nyroModalManual({ url: 'http://localhost/congressogestaltrio.com.br/cms/calendario/extrato/co:21/i:27',
+			$.nyroModalManual({ url: CMS.base_url + 'cms/trabalhos/avaliacao_answers/' + ava.id,
 					modal: false, forceType: 'iframe'});
 		};
 

@@ -266,6 +266,46 @@ class Trabalhos extends Cms_Controller
     }
 
 
+
+	public function avaliacao_answers($id)
+	{
+		/*
+		 * VARIÁVEIS
+		 */
+		$this->var = $this->uri->to_array(array('insc', 'i', 'erro', 'tip', 'imgs', 'arqs'));
+		$modulo = $this->modulo; // infos do módulo
+		$this->title = 'Avaliação';
+		$this->tabela = 'cms_conteudo';
+
+		/*
+		 * ASSETS
+		 */
+		$this->jquery = array();
+		$this->cmsJS = array();
+		$this->css = array();
+
+		/*
+		 * OPÇÕES
+		 */
+		$this->botoes = array(
+			//'url' => 'Label'
+		);
+		/*
+		 * PROCESSA
+		 */
+		$this->load->model('cms/avaliacao_model', 'avaliacao');
+		$ret = $this->avaliacao->find($id, array('job' => 1));
+		$answer = new \Gestalt\Trabalho\EvaluationForm();
+		$answer->setData($ret['form_answers']);
+
+		$dados['html'] = $answer->getAnswers('html');
+
+		// -- chama as views -- //
+		$this->corpo = $this->load->view('cms/trabalhos/avaliacao_trabalho_form', $dados, true);
+		$this->modalRender();
+	}
+
+
     /**
      * Recebe requisição AJAX para atualizar lista de autores
      *

@@ -1,0 +1,89 @@
+#header-avaliacao{
+    background: #F7F7F7;
+    padding: 10px 0;
+}
+
+#footer-avaliacao{
+    background: #F7F7F7;  
+    padding: 10px 0 0;
+}
+
+
+.panel-job{}
+
+.job-label{
+    font-weight: 700;
+    color: #999;
+    border-bottom: #D8D8D8 solid 1px;
+}
+
+.job-content{
+    margin: 5px 0 3em;
+}
+
+
+
+.panel-form {
+    background-color: #F7F7F7;
+    border-left: #E7E7E7 solid 1px;
+    padding: 10px;
+    /* height: 600px; */
+    position: relative;
+}
+
+
+.form-title{
+    text-transform: uppercase;
+    font-weight: 700;
+    /* margin: 0 0 -20px; */
+    display: inline-block;
+    position: absolute;
+    top: -30px;
+    left: -1px;
+    background-color: #F7F7F7;
+    padding: 10px;
+    border-radius: 0 10px 0 0;
+    border-left: #E7E7E7 solid 1px;
+}
+
+
+
+.panel-form .form-group {
+}
+
+.panel-form label {
+    font-size: 90%;
+}
+
+.panel-form .form-control {
+    font-size: 90%;
+}
+
+.checkbox:hover{
+    background-color: #FDFDB8;
+}
+
+
+.back-link:link,
+.back-link:visited {
+    color: #999;
+    
+    font-weight: 700;
+}
+
+
+.back-link:hover{
+    text-decoration: none;
+    color: #428bca;
+}
+
+
+.status-canceled{
+    text-decoration: line-through;
+}
+
+
+.avaliacao-item .glyphicon-ok{
+    color: rgb(96, 192, 96);
+    font-size: 1.5em;
+}

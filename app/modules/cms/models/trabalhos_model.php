@@ -363,16 +363,17 @@ class Trabalhos_model extends MY_Model
     }
 
 
-    /**
-     * get the job
-     * decorate and return
-     *
-     * @param mixed $var
-     * @return array|bool
-     */
-    function find($var)
+	/**
+	 * get the job
+	 * decorate and return
+	 *
+	 * @param mixed $var
+	 * @param bool $newQuery
+	 * @return array|bool
+	 */
+    function find($var, $newQuery = true)
     {
-        if ($this->thisModel !== null)
+        if ($this->thisModel !== null && $newQuery)
         {
             return $this->thisModel;
         }
@@ -445,13 +446,16 @@ class Trabalhos_model extends MY_Model
 
                 //                dd($metas);
 
+                // subtítulo
+                $model['subtitulo'] = get_meta($metas, 'subtitulo', null, true);
+
                 // eixo temático
                 $tema                   = $this->congresso->getTema(get_meta($metas, 'eixo_tematico', null, true));
                 $model['eixo_tematico'] = $tema['title'];
 
                 // modalidade
                 $moda                = $this->congresso->getModalidade(get_meta($metas, 'modalidade', null, true));
-                $model['modalidade'] = $moda['title'];;
+                $model['modalidade'] = $moda['title'];
             }
 
             // coloca no array

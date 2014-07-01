@@ -23,16 +23,61 @@ class Avaliador_model extends MY_Model
 //		$this->load->model('cms/avaliacao_model', 'avaliacao');
 	}
 
-	public function doLogin()
-	{
 
+	/**
+	 * perform login of appraiser user to perform evaluation of jobs
+	 *
+	 * @param $login
+	 * @param $password
+	 * @return array|bool
+	 * @throws Exception
+	 */
+	public function doLogin($login, $password)
+	{
+		$this->load->helper('checkfix');
+		$user = $this->cms_usuario->do_login(array(
+			'email' => $login,
+			'senha' => cf_password($password, 4, 20),
+			'grupo' => $this->avalCategoryId
+		));
+
+		if(! $user)
+		{
+			throw new Exception("Login ou senha estão incorretos, ou usuário não tem permissão.");
+		}
+
+		return $user;
 	}
 
+	/**
+	 * erase session
+	 */
 	public function doLogout()
 	{
-
+		$this->cms_usuario->do_logout();
 	}
 
+	/**
+	 * check if user is logged in and validate the user group
+	 *
+	 * @return array|bool
+	 */
+	public function gerLoggedUser()
+	{
+		if ($user = $this->cms_usuario->get_session()) {
+			return ($user['grupo'] != $this->avalCategoryId) ? false : $user;
+		} else {
+			return false;
+		}
+	}
+
+
+	/**
+	 * get user by ID and store on $this->userFound
+	 *
+	 * @param $id
+	 * @return null
+	 */
 	public function find($id)
 	{
 		if ($this->userFound !== null)
@@ -180,7 +225,7 @@ class Avaliador_model extends MY_Model
 	}
 
 	/**
-	 * create row for evaluation form
+	 * create row for evaluation form answers
 	 *
 	 * @param array $eval Job evaluation pivot
 	 * @return object

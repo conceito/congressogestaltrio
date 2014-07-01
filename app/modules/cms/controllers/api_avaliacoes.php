@@ -31,15 +31,64 @@ class Api_avaliacoes extends Api_Controller
 
 	public function remove($id)
 	{
-		try{
+		try
+		{
 			$ret = $this->avaliacao->remove($id);
 			echo $this->responseOk(array('id' => $id), 'Avaliação removida.');
 
-		} catch(Exception $e)
+		} catch (Exception $e)
 		{
 			echo $this->responseError($e->getMessage());
 		}
 
+	}
 
+
+	/**
+	 * POST
+	 * receive evaluation form
+	 *
+	 * @param $id
+	 */
+	public function evaluate($id)
+	{
+		$method = $this->input->server('REQUEST_METHOD');
+
+		if ($method === 'POST')
+		{
+			$payload = file_get_contents('php://input');
+			$data    = json_decode($payload, true);
+
+			try
+			{
+				$ret = $this->avaliacao->updateEvaluation($id, $data['form'], array());
+				echo $this->responseOk($ret, 'Avaliação realizada corretamente .');
+			} catch (Exception $e)
+			{
+				echo $this->responseError($e->getMessage());
+			}
+		}
+		else
+		{
+			echo $this->responseError('Requisição não autorizada.');
+		}
+	}
+
+	public function form($id)
+	{
+		$method = $this->input->server('REQUEST_METHOD');
+
+		if ($method === 'GET')
+		{
+			$ret = $this->avaliacao->find($id, array('job' => 1));
+			$answer = new \Gestalt\Trabalho\EvaluationForm();
+			$answer->setData($ret['form_answers']);
+			echo $answer->getAnswers('html');
+//			echo $this->responseOk($ret, 'Avaliação realizada corretamente .');
+		}
+		else
+		{
+			echo $this->responseError('Requisição não autorizada.');
+		}
 	}
 }

@@ -18,7 +18,7 @@ class Avaliacao_model extends MY_Model
 		$this->load->model('cms/avaliador_model', 'avaliador');
 	}
 
-	public function find($id)
+	public function find($id, $options = array())
 	{
 		$this->db->select("ava.*, form.id as form_id, form.txt as form_answers, form.txtmulti as form_comments,
 		form.modulo_id, form.dt_ini as form_dt_ini, form.dt_fim as form_dt_fim, form.hr_ini as form_hr_ini,
@@ -30,7 +30,7 @@ class Avaliacao_model extends MY_Model
 		$this->db->where('form.tipo', 'form-avaliacao');
 		$qEvaluations = $this->db->get();
 
-		return $this->decorateCollection($qEvaluations->result_array())[0];
+		return $this->decorateCollection($qEvaluations->result_array(), $options)[0];
 	}
 
 	/**
@@ -137,9 +137,10 @@ class Avaliacao_model extends MY_Model
 	 * get all evaluations for a user
 	 *
 	 * @param $userId
+	 * @param array $options
 	 * @return array|null
 	 */
-	public function allByUser($userId)
+	public function allByUser($userId, $options = array())
 	{
 		$this->db->select("ava.*, form.id as form_id, form.txt as form_answers, form.txtmulti as form_comments,
 		form.modulo_id, form.dt_ini as form_dt_ini, form.dt_fim as form_dt_fim, form.hr_ini as form_hr_ini,
@@ -151,10 +152,10 @@ class Avaliacao_model extends MY_Model
 		$this->db->where('form.tipo', 'form-avaliacao');
 		$qEvaluations = $this->db->get();
 
-		return $this->decorateCollection($qEvaluations->result_array());
+		return $this->decorateCollection($qEvaluations->result_array(), $options);
 	}
 
-	private function decorateCollection($array)
+	private function decorateCollection($array, $options = array())
 	{
 		if(! is_array($array))
 		{
@@ -164,13 +165,13 @@ class Avaliacao_model extends MY_Model
 		$collection = array();
 		foreach($array as $item)
 		{
-			$collection[] = $this->decorateEvaluation($item);
+			$collection[] = $this->decorateEvaluation($item, $options);
 		}
 
 		return $collection;
 	}
 
-	public function decorateEvaluation($item)
+	public function decorateEvaluation($item, $options = array())
 	{
 		$item['form_dt_ini'] = formaPadrao($item['form_dt_ini']);
 		$item['form_dt_fim'] = formaPadrao($item['form_dt_fim']);
@@ -182,6 +183,11 @@ class Avaliacao_model extends MY_Model
 		// status = status da avaliação [1 avaliado, 2 aguardando avaliação, 0 cancelado]
 
 		$item['valor_label'] = $this->getNotaLabel($item['valor'], $item['status']);
+
+		if(isset($options['job']) && $options['job'])
+		{
+			$item['job'] = $this->trabalho->find($item['conteudo_id'], false);
+		}
 
 		return $item;
 	}
@@ -205,6 +211,50 @@ class Avaliacao_model extends MY_Model
 
 
 	/**
+	 * update evaluation
+	 * get user form request, adapt, update
+	 *
+	 * @param $id
+	 * @param $form
+	 * @param array $extra
+	 * @return array
+	 */
+	public function updateEvaluation($id, $form, $extra = array())
+	{
+		$adapter = new \Cms\Adapters\JobEvaluationAdapter($id, $form);
+
+		// get evaluation by ID
+		$evaluation = $this->find($id);
+
+		if($evaluationData = $adapter->evaluation())
+		{
+			$this->db->update('cms_conteudo_rel', $evaluationData, array('id' => $id));
+		}
+
+		if($jobData = $adapter->job())
+		{
+			$this->db->update('cms_conteudo', $jobData, array('id' => $evaluation['conteudo_id']));
+		}
+
+		if($formData = $adapter->form())
+		{
+			$this->updateFormByEvaluationId($id, $formData);
+		}
+
+		/**
+		 * SEND NOTIFICATION
+		 */
+		$notify = new \Cms\Notifications\EvaluationCompletedNotification();
+		$notify->setEvaluation($this->find($id, array('job' => 1)));
+		$notify->debug();
+		$notify->send();
+
+		return true;
+
+	}
+
+
+	/**
 	 * set status to canceled
 	 *
 	 * @param $id
@@ -216,6 +266,43 @@ class Avaliacao_model extends MY_Model
 
 		$eval['status'] = 0;
 		return $this->db->update('cms_conteudo_rel', $eval, array('id' => $id));
+	}
+
+
+	/**
+	 * return the form data of a evaluation
+	 *
+	 * @param $evalId
+	 * @return bool
+	 */
+	public function getFormByEvaluationId($evalId)
+	{
+		$this->db->where('rel', $evalId);
+		$this->db->where('tipo', 'form-avaliacao');
+
+		$qForm = $this->db->get('cms_conteudo');
+
+		if($qForm->num_rows() == 0)
+		{
+			return false;
+		}
+
+		return $qForm->row_array();
+	}
+
+
+	public function updateFormByEvaluationId($evalId, $data = array())
+	{
+		$form = $this->getFormByEvaluationId($evalId);
+
+		if($form)
+		{
+			$this->db->update('cms_conteudo', $data, array('id' => $form['id']));
+			return true;
+		}
+
+		throw new Exception("Form da avaliação não foi encontrado.");
+
 	}
 
 }

@@ -288,7 +288,7 @@ class Inscricao extends Frontend_Controller
         $this->form_validation->set_rules('curriculo_2', 'Minicurrículo (2)', 'trim|callback_html_max_length[500]');
         $this->form_validation->set_rules('autor_nome_3', 'Nome do autor (3)', 'trim');
         $this->form_validation->set_rules('curriculo_3', 'Minicurrículo (3)', 'trim|callback_html_max_length[500]');
-        $this->form_validation->set_rules('proposta', 'Proposta', 'trim|required');
+        $this->form_validation->set_rules('proposta', 'Proposta', 'trim|required|callback_html_max_length[12000]');
 
         $this->form_validation->set_error_delimiters('<label class="error">', '</label>');
 
