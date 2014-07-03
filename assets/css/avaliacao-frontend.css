@@ -1,13 +1,32 @@
 #header-avaliacao{
     background: #F7F7F7;
+    background-color: #faa32d;
     padding: 10px 0;
+}
+
+#header-avaliacao a:link,
+#header-avaliacao a:visited,
+#footer-avaliacao a:link,
+#footer-avaliacao a:visited{
+    color: #fff;
 }
 
 #footer-avaliacao{
     background: #F7F7F7;  
+    background-color: #faa32d;
     padding: 10px 0 0;
 }
 
+
+
+.page.avaliacao h1{
+    text-transform: uppercase;  margin: 1em 0 .7em;  color: #537E51;
+}
+
+.page.avaliacao th{
+    color: #537E51;
+    text-transform: uppercase;
+}
 
 .panel-job{}
 
@@ -24,11 +43,12 @@
 
 
 .panel-form {
-    background-color: #F7F7F7;
+    background-color: #ECF7F1;
     border-left: #E7E7E7 solid 1px;
     padding: 10px;
     /* height: 600px; */
     position: relative;
+    box-shadow: -2px 2px 5px rgba(0, 0, 0, 0.17);
 }
 
 
@@ -40,10 +60,11 @@
     position: absolute;
     top: -30px;
     left: -1px;
-    background-color: #F7F7F7;
+    background-color: #ECF7F1;
     padding: 10px;
     border-radius: 0 10px 0 0;
     border-left: #E7E7E7 solid 1px;
+    box-shadow: -3px 0px 0px rgba(0, 0, 0, 0.07);
 }
 
 

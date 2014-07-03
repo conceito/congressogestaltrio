@@ -6,8 +6,10 @@
 		<div class="col-xs-12 col-lg-10 col-lg-push-1">
 			<h1><a href="<?php echo site_url('avaliacao/index')?>" class="back-link">&lt;</a> Avaliando trabalho</h1>
 
-			<p>Caro avaliador, <br/> após avaliar o trabalho (painel esquerdo), preencha o formulário (painel
-				direito) de forma completa para validar sua avaliação.</p>
+			<p><b>Caro avaliador, <br/> após avaliar o trabalho (painel esquerdo), preencha o formulário (painel
+				direito) de forma completa para validar sua avaliação.</b></p>
+
+			<hr/>
 
 			<br/>
 			<br/>
