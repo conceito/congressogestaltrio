@@ -1,6 +1,7 @@
 _dev/
 .idea/
 vendor/
+app/logs/*
 upl/arqs/*
 upl/imgs/*
 nbproject/
