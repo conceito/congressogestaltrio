@@ -1,5 +1,7 @@
 <?php
 
+use Cms\Notifications\EvaluationCompletedNotification;
+
 class Api_avaliacoes extends Api_Controller
 {
 
@@ -90,5 +92,19 @@ class Api_avaliacoes extends Api_Controller
 		{
 			echo $this->responseError('Requisição não autorizada.');
 		}
+	}
+
+
+	public function test(){
+
+
+//		$notify = new EvaluationCompletedNotification();
+//
+//		var_dump($notify);
+//
+//		$notify->setEvaluation(array(1,2,3));
+//
+//		var_dump($notify->send());
+
 	}
 }

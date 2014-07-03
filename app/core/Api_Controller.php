@@ -6,7 +6,9 @@ class Api_Controller extends MY_Controller
 
 	public function __construct()
 	{
+
 		parent::__construct();
+
 		/*
 		 * CARREGA CONFIGURAÇÕES DO CMS
 		 */

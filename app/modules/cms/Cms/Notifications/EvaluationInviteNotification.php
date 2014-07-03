@@ -26,7 +26,7 @@ class EvaluationInviteNotification extends AbstractNotification
 	public function send()
 	{
 //		$this->service->adminCopy();
-		$this->service->send();
+		return $this->service->send();
 	}
 
 	/**

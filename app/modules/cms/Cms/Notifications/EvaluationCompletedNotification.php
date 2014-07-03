@@ -1,17 +1,11 @@
 <?php namespace Cms\Notifications;
 
+class EvaluationCompletedNotification extends AbstractNotification
+{
 
-class EvaluationCompletedNotification extends AbstractNotification{
-
-	private $ci;
 	protected $subject = 'Avaliação de trabalho concluída';
 
 	private $evaluation;
-
-	function __construct()
-	{
-		$this->ci = &get_instance();
-	}
 
 
 	/**
@@ -35,12 +29,13 @@ class EvaluationCompletedNotification extends AbstractNotification{
 	 */
 	public function send()
 	{
+
 		$this->setUsers(array(
-			'nome' => $this->ci->config->item('title'),
-			'email' => $this->ci->config->item('email1')
+			'nome' => $this->config->item('title'),
+			'email' => $this->config->item('email1')
 		));
 		//		$this->service->adminCopy();
-		$this->service->send();
+		return $this->service->send();
 	}
 
 	/**
@@ -50,7 +45,7 @@ class EvaluationCompletedNotification extends AbstractNotification{
 	public function messageBody()
 	{
 		$v['eval'] = $this->getEvaluation();
-		$body = $this->load->view('email/evaluation_completed', $v, true);
+		$body      = $this->load->view('email/evaluation_completed', $v, true);
 
 		return $this->composeTemplate($body);
 	}

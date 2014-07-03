@@ -41,15 +41,11 @@ class NotificationSender
 
 	public function send()
 	{
-		//		$user      = $this->getUser();
-
 		$subject   = $this->notification->getSubject();
 		$menHTML   = $this->notification->messageBody();
 		$menTXT    = trim(strip_tags($menHTML));
 		$sendEmail = $this->notification->getFromEmail();
 		$sendName  = $this->notification->getFromName();
-
-//		dd($this->notification->getUsers());
 
 
 		/**
@@ -76,6 +72,7 @@ class NotificationSender
 		}
 		else
 		{
+
 			foreach ($this->notification->getUsers() as $user)
 			{
 				$parsedHtml = $this->parseMessageBody($menHTML, $user);

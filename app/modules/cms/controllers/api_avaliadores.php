@@ -1,4 +1,5 @@
 <?php
+use Cms\Notifications\EvaluationInviteNotification;
 
 /**
  * Class Api_avaliadores
@@ -13,11 +14,19 @@ class Api_avaliadores extends Api_Controller
 	{
 		parent::__construct();
 		$this->load->model('cms/avaliador_model', 'avaliador');
-		$this->load->model('cms/avaliacao_model', 'avaliacao');
+
+
+
+	}
+
+	public function index(){
+
+		echo $this->responseError('Acesso restito.');
 	}
 
 	public function all()
 	{
+//		dd('all');
 
 		$all = $this->avaliador->all();
 
@@ -52,6 +61,8 @@ class Api_avaliadores extends Api_Controller
 
 			if($evaluationId){
 
+				$this->load->model('cms/avaliacao_model', 'avaliacao');
+
 				$evaluation = $this->avaliacao->find($evaluationId);
 				echo $this->responseOk($evaluation, 'Convite enviado.');
 			} else {
@@ -62,5 +73,21 @@ class Api_avaliadores extends Api_Controller
 			echo $this->responseError($e->getMessage());
 		}
 
+	}
+
+
+	public function test(){
+
+		// send notification
+//		$notify = new EvaluationInviteNotification();
+//		$notify->setUsers(array('nome' => 'euzinho', 'email' => 'dev@conceito-online.com.br'));
+//
+//		var_dump($notify);
+
+		//		if(ENVIRONMENT == 'development'){
+		//			$notify->debug();
+		//		}
+
+//		echo $notify->send();
 	}
 }

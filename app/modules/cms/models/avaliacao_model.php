@@ -1,5 +1,7 @@
 <?php
 
+use Cms\Notifications\EvaluationCompletedNotification;
+
 class Avaliacao_model extends MY_Model
 {
 
@@ -8,7 +10,6 @@ class Avaliacao_model extends MY_Model
 	 * @var null
 	 */
 	protected $evaluations = null;
-
 
 
 	public function __construct()
@@ -30,7 +31,9 @@ class Avaliacao_model extends MY_Model
 		$this->db->where('form.tipo', 'form-avaliacao');
 		$qEvaluations = $this->db->get();
 
-		return $this->decorateCollection($qEvaluations->result_array(), $options)[0];
+		$decorated = $this->decorateCollection($qEvaluations->result_array(), $options);
+
+		return $decorated[0];
 	}
 
 	/**
@@ -43,7 +46,7 @@ class Avaliacao_model extends MY_Model
 	 */
 	public function allByContent($contentId)
 	{
-		if($this->evaluations !== null)
+		if ($this->evaluations !== null)
 		{
 			return $this->evaluations;
 		}
@@ -74,9 +77,9 @@ class Avaliacao_model extends MY_Model
 
 		$finished = array();
 
-		foreach($evaluations as $eval)
+		foreach ($evaluations as $eval)
 		{
-			if($eval['status'] == 1)
+			if ($eval['status'] == 1)
 			{
 				$finished[] = $eval;
 			}
@@ -98,9 +101,9 @@ class Avaliacao_model extends MY_Model
 
 		$awaiting = array();
 
-		foreach($evaluations as $eval)
+		foreach ($evaluations as $eval)
 		{
-			if($eval['status'] == 2)
+			if ($eval['status'] == 2)
 			{
 				$awaiting[] = $eval;
 			}
@@ -109,6 +112,7 @@ class Avaliacao_model extends MY_Model
 		return $awaiting;
 
 	}
+
 	/**
 	 * filter just canceled evaluations == the super admin removed the answer
 	 *
@@ -121,9 +125,9 @@ class Avaliacao_model extends MY_Model
 
 		$canceled = array();
 
-		foreach($evaluations as $eval)
+		foreach ($evaluations as $eval)
 		{
-			if($eval['status'] == 0)
+			if ($eval['status'] == 0)
 			{
 				$canceled[] = $eval;
 			}
@@ -157,13 +161,13 @@ class Avaliacao_model extends MY_Model
 
 	private function decorateCollection($array, $options = array())
 	{
-		if(! is_array($array))
+		if (!is_array($array))
 		{
 			return null;
 		}
 
 		$collection = array();
-		foreach($array as $item)
+		foreach ($array as $item)
 		{
 			$collection[] = $this->decorateEvaluation($item, $options);
 		}
@@ -173,10 +177,10 @@ class Avaliacao_model extends MY_Model
 
 	public function decorateEvaluation($item, $options = array())
 	{
-		$item['form_dt_ini'] = formaPadrao($item['form_dt_ini']);
-		$item['form_dt_fim'] = formaPadrao($item['form_dt_fim']);
-		$item['form_hr_ini'] = substr($item['form_hr_ini'], 0, 5);
-		$item['form_hr_fim'] = substr($item['form_hr_fim'], 0, 5);
+		$item['form_dt_ini']  = formaPadrao($item['form_dt_ini']);
+		$item['form_dt_fim']  = formaPadrao($item['form_dt_fim']);
+		$item['form_hr_ini']  = substr($item['form_hr_ini'], 0, 5);
+		$item['form_hr_fim']  = substr($item['form_hr_fim'], 0, 5);
 		$item['form_answers'] = unserialize($item['form_answers']);
 
 		// valor = nota da avaliação [10 aprovado, 5 aprovado com correções, 0 reprovado ]
@@ -184,7 +188,7 @@ class Avaliacao_model extends MY_Model
 
 		$item['valor_label'] = $this->getNotaLabel($item['valor'], $item['status']);
 
-		if(isset($options['job']) && $options['job'])
+		if (isset($options['job']) && $options['job'])
 		{
 			$item['job'] = $this->trabalho->find($item['conteudo_id'], false);
 		}
@@ -192,17 +196,20 @@ class Avaliacao_model extends MY_Model
 		return $item;
 	}
 
-	public function getNotaLabel($valor, $status){
+	public function getNotaLabel($valor, $status)
+	{
 
 		$label = 'Não avaliado';
-		if($valor == 10 && $status == 1)
+		if ($valor == 10 && $status == 1)
 		{
 			$label = 'Aprovado';
-		} else if($valor == 5 && $status == 1)
+		}
+		else if ($valor == 5 && $status == 1)
 		{
 			$label = 'Aprovado com correções';
 		}
-		else if($valor == 0 && $status == 1){
+		else if ($valor == 0 && $status == 1)
+		{
 			$label = 'Reprovado';
 		}
 
@@ -226,17 +233,17 @@ class Avaliacao_model extends MY_Model
 		// get evaluation by ID
 		$evaluation = $this->find($id);
 
-		if($evaluationData = $adapter->evaluation())
+		if ($evaluationData = $adapter->evaluation())
 		{
 			$this->db->update('cms_conteudo_rel', $evaluationData, array('id' => $id));
 		}
 
-		if($jobData = $adapter->job())
+		if ($jobData = $adapter->job())
 		{
 			$this->db->update('cms_conteudo', $jobData, array('id' => $evaluation['conteudo_id']));
 		}
 
-		if($formData = $adapter->form())
+		if ($formData = $adapter->form())
 		{
 			$this->updateFormByEvaluationId($id, $formData);
 		}
@@ -244,9 +251,9 @@ class Avaliacao_model extends MY_Model
 		/**
 		 * SEND NOTIFICATION
 		 */
-		$notify = new \Cms\Notifications\EvaluationCompletedNotification();
+		$notify = new EvaluationCompletedNotification();
 		$notify->setEvaluation($this->find($id, array('job' => 1)));
-		$notify->debug();
+		//		$notify->debug();
 		$notify->send();
 
 		return true;
@@ -262,9 +269,10 @@ class Avaliacao_model extends MY_Model
 	 */
 	public function remove($id)
 	{
-//		$evaluation = $this->find($id);
+		//		$evaluation = $this->find($id);
 
 		$eval['status'] = 0;
+
 		return $this->db->update('cms_conteudo_rel', $eval, array('id' => $id));
 	}
 
@@ -282,7 +290,7 @@ class Avaliacao_model extends MY_Model
 
 		$qForm = $this->db->get('cms_conteudo');
 
-		if($qForm->num_rows() == 0)
+		if ($qForm->num_rows() == 0)
 		{
 			return false;
 		}
@@ -295,9 +303,10 @@ class Avaliacao_model extends MY_Model
 	{
 		$form = $this->getFormByEvaluationId($evalId);
 
-		if($form)
+		if ($form)
 		{
 			$this->db->update('cms_conteudo', $data, array('id' => $form['id']));
+
 			return true;
 		}
 

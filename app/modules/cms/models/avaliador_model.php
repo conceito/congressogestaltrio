@@ -18,6 +18,7 @@ class Avaliador_model extends MY_Model
 
 	public function __construct()
 	{
+
 		$this->load->library(array('cms_usuario'));
 		$this->load->model('cms/trabalhos_model', 'trabalho');
 //		$this->load->model('cms/avaliacao_model', 'avaliacao');
@@ -182,7 +183,7 @@ class Avaliador_model extends MY_Model
 		$notify->setUsers(array($user));
 
 //		if(ENVIRONMENT == 'development'){
-			$notify->debug();
+//			$notify->debug();
 //		}
 
 		$notify->send();
