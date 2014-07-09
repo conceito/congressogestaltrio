@@ -54,16 +54,17 @@ class Options_menu {
             }
         }
     }
-    
-    /**
-     * prebuilt item
-     * 
-     * link para duplicar conteúdo
-     * 
-     * @param type $co
-     * @param type $id
-     * @param type $moduleSlug
-     */
+
+	/**
+	 * prebuilt item
+	 *
+	 * link para duplicar conteúdo
+	 *
+	 * @param type $co
+	 * @param type $id
+	 * @param string $moduleSlug
+	 * @return bool
+	 */
     public function addDuplicate($co, $id, $moduleSlug = 'post')
     {
         if(!is_numeric($co) || !is_numeric($id))
@@ -102,6 +103,7 @@ class Options_menu {
             'co' => $co
         ));
     }
+
 
     /**
      * Adiciona os itens no atributo da classe

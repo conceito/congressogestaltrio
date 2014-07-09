@@ -2968,7 +2968,8 @@ button.btn.small, input[type="submit"].btn.small {
 .navbar .nav .active > .dropdown-toggle:hover {
   color: #ffffff;
 }
-.navbar .nav.pull-right .dropdown-menu {
+.navbar .nav.pull-right .dropdown-menu, 
+.dropdown-menu.pull-right  {
   left: auto;
   right: 0;
 }

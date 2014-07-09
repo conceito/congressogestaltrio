@@ -266,6 +266,27 @@ class Trabalhos extends Cms_Controller
     }
 
 
+	/**
+	 * tela para geração de pdfs
+	 */
+	public function pdf()
+	{
+		$modulo        = $this->modulo;
+		$this->var     = $this->uri->to_array(array('offset', 'pp', 'g', 'dt1', 'dt2', 'b', 'stt', 'tip', 'co'));
+
+
+		try{
+			$pdf = new \Cms\Exporters\AllJobsExport();
+			$pdf->make();
+		}catch (Exception $e)
+		{
+			d($e->getMessage());
+		}
+
+
+	}
+
+
 
 	public function avaliacao_answers($id)
 	{

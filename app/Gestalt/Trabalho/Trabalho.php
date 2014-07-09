@@ -120,8 +120,8 @@ class Trabalho extends \CI_Model
 
         $loggedUser = $this->usuario->get_session();
 
-        $fields['titulo']    = (isset($form['titulo'])) ? $form['titulo'] : 'sem título';
-        $fields['resumo']    = (isset($form['resumo1'])) ? $form['resumo1'] : 'sem resumo';
+        $fields['titulo']    = (isset($form['titulo'])) ? clean_html_to_db($form['titulo']) : 'sem título';
+        $fields['resumo']    = (isset($form['resumo1'])) ? clean_html_to_db($form['resumo1']) : 'sem resumo';
         $fields['dt_ini']    = date("Y-m-d");
         $fields['dt_fim']    = date("Y-m-d");
         $fields['hr_ini']    = date("H:i:s");
@@ -131,7 +131,7 @@ class Trabalho extends \CI_Model
         $fields['tags']      = (isset($form['palavras_chave'])) ? $form['palavras_chave'] : '';
         $fields['status']    = 1;
 //        $fields['txt']       = (isset($form['proposta'])) ? campo_texto_utf8($form['proposta']) : '';
-        $fields['txt']       = (isset($form['proposta'])) ? $form['proposta'] : '';
+        $fields['txt']       = (isset($form['proposta'])) ? clean_html_to_db($form['proposta']) : '';
         //        $dados['rel']        = prep_rel_to_sql($rel);
         $fields['atualizado'] = date("Y-m-d H:i:s");
         $fields['nick']       = url_title($fields['titulo'], '-', true);
@@ -159,7 +159,7 @@ class Trabalho extends \CI_Model
             $metas[] = array(
                 'meta_key'   => 'subtitulo',
                 'meta_type'  => '',
-                'meta_value' => $form['subtitulo']
+                'meta_value' => clean_html_to_db($form['subtitulo'])
             );
         }
         if (isset($form['eixo_tematico']))

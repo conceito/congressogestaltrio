@@ -13,14 +13,14 @@ class Usuarios_model extends CI_Model
         parent::__construct();
     }
 
-    /**
-     * Lista os conteudos dos grupos e conteudos
-     *
-     * @param mixed $v array com dados via URI
-     * @param string $tipo grupo ou conteudo
-     * @param array $modulo array dados do módulo
-     * @return
-     */
+	/**
+	 * Lista os conteudos dos grupos e conteudos
+	 *
+	 * @param mixed $v array com dados via URI
+	 * @param string $tipo grupo ou conteudo
+	 * @param array $modulo array dados do módulo
+	 * @return array
+	 */
     function lista_conteudos($v, $tipo = 'conteudo', $modulo = array())
     {
         // -- trata as variaveis --//
@@ -578,7 +578,22 @@ class Usuarios_model extends CI_Model
         $dados['emailSite'] = $emailRem;
         $dados['urlSite']   = $urlsite;
 
-        $menHTML = $this->load->view('cms/email_usuarios', $dados, true);
+	    /**
+	     * so, use the front-end template
+	     */
+	    if(view_exist('template/email'))
+	    {
+		    $v['body'] = "<h1>{$assunto}</h1>";
+		    $v['body'] .= $dados['corpo'];
+		    $menHTML = $this->load->view('template/email', $v, true);
+	    }
+	    /**
+	     * use the default
+	     */
+	    else
+	    {
+		    $menHTML = $this->load->view('cms/email_usuarios', $dados, true);
+	    }
 
         $menTXT = $mensagem . PHP_EOL . "
 		--------------------------------------------------------------------------------------------------------

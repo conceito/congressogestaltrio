@@ -4,6 +4,55 @@ if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
 
+
+if(! function_exists('clean_html_to_db'))
+{
+	/**
+	 * clear atributes from these tags:
+	 * - p
+	 * - span
+	 * remove comments
+	 *
+	 * @param string $str
+	 * @return mixed
+	 */
+	function clean_html_to_db($str = '')
+	{
+		$str = preg_replace("/<span[^>]+\>/", "<span>", $str);
+		$str = preg_replace("/<p[^>]+\>/", "<p>", $str);
+		return preg_replace("/<!--(.*?)-->/", "", $str);
+	}
+}
+
+
+if(! function_exists('view_exist'))
+{
+	/**
+	 * check if view exists
+	 * if it has 'cms' at the beginning it is cms module
+	 *
+	 * @param string $viewPath
+	 * @return bool
+	 */
+	function view_exist($viewPath = '')
+	{
+		$module = 'views/';// no module
+		$path = trim($viewPath, '/');
+		if(substr($viewPath, 0, 3) === 'cms')
+		{
+			$module = 'modules/cms/views/';
+			$path = trim(substr($viewPath, 3), '/');
+		}
+
+		if (file_exists(APPPATH .$module. $path . EXT))
+		{
+			return true;
+		}
+
+		return false;
+	}
+}
+
 if(! function_exists('err'))
 {
     function err($field = null){

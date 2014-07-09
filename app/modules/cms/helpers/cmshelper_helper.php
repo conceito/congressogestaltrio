@@ -3,6 +3,35 @@
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
+
+if(! function_exists('view_exist'))
+{
+	/**
+	 * check if view exists
+	 * if it has 'cms' at the beginning it is cms module
+	 *
+	 * @param string $viewPath
+	 * @return bool
+	 */
+	function view_exist($viewPath = '')
+	{
+		$module = 'views/';// no module
+		$path = trim($viewPath, '/');
+		if(substr($viewPath, 0, 3) === 'cms')
+		{
+			$module = 'modules/cms/views/';
+			$path = trim(substr($viewPath, 3), '/');
+		}
+
+		if (file_exists(APPPATH .$module. $path . EXT))
+		{
+			return true;
+		}
+
+		return false;
+	}
+}
+
 /**
  * Entra a string 'tipo' e retorna o número da revisão
  */

@@ -223,27 +223,34 @@
 
 	            <td><a href="" title="ver avaliação" ng-click="openAvaliacao(ava)"><i
 				            class="icon-file"></i></a></td>
-	            <td><a href="" ng-click="removeAvaliacao(ava, 'finished')" title="remover avaliação"><i
-				            class="icon-remove"></i></a></td>
+	            <td class="">
+		            <div class="dropdown pull-right">
+			            <a title="opções" class="dropdown-toggle" id="dLabel" role="button" data-toggle="dropdown"
+			               href="#">
+				           <i class="icon-cog"></i>
+			            </a>
+			            <ul class="dropdown-menu pull-right" role="menu" aria-labelledby="dLabel">
+				            <li><a href="" ng-click="removeAvaliacao(ava, 'finished')">remover avaliação</a></li>
+			            </ul>
+		            </div>
+	            </td>
             </tr>
-<!--            <tr>-->
-<!--                <td><span class="author-name">Nome do autor</span></td>-->
-<!--                <td><a href=""><i class="icon-file"></i></a></td>-->
-<!--                <td><a href=""><i class="icon-remove"></i></a></td>-->
-<!--                <td><span class="label label-important">Veredicto</span></td>-->
-<!---->
-<!--            </tr>-->
-<!--            <tr>-->
-<!--                <td><span class="author-name">Nome do autor</span></td>-->
-<!--                <td><a href=""><i class="icon-file"></i></a></td>-->
-<!--                <td><a href=""><i class="icon-remove"></i></a></td>-->
-<!--                <td><span class="label label-warning">Veredicto</span></td>-->
-<!---->
-<!--            </tr>-->
+
         </table>
 
     </div>
     <!-- .control-group -->
+
+
+	<div class="control-group box">
+
+		<label for="" class="lb-full">Notificar responsável</label>
+		<p>Enviar e-mail para o responsável sobre status do trabalho.</p>
+		<a href="<?php echo cms_url('cms/usuarios/mensagemForm/id:' . $row['autor'])?>" class="btn nyroModal"
+		   target="_blank">Enviar mensagem</a>
+
+	</div>
+	<!-- .control-group -->
 
 
 

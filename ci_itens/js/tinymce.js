@@ -16,7 +16,7 @@ $(document).ready(function() {
         /* removed:
          * pagebreak, forecolor, outdent,indent, pasteword
          * */
-        theme_advanced_buttons1: "bold,italic,underline,|,justifyleft,justifycenter,justifyright",
+        theme_advanced_buttons1: "bold,italic,underline,|,justifyleft,justifycenter,justifyright,code",
 
         cleanup: true,
         init_instance_callback: function (inst) {

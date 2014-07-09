@@ -68,7 +68,7 @@ class MY_Model extends CI_Model
             $metaArray = array(
                 'meta_key' => $metas['meta_key'],
                 'meta_type' => $metas['meta_type'],
-                'meta_value' => $metas['meta_value']
+                'meta_value' => clean_html_to_db($metas['meta_value'])
             );
 
             // tenta atualizar
@@ -86,7 +86,7 @@ class MY_Model extends CI_Model
                 $metaArray = array(
                     'meta_key' => $meta['meta_key'],
                     'meta_type' => $meta['meta_type'],
-                    'meta_value' => $this->input->post($meta['meta_key'])
+                    'meta_value' => clean_html_to_db($this->input->post($meta['meta_key']))
                 );
 
                 // tenta atualizar

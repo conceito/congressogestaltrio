@@ -319,9 +319,10 @@ class Trabalhos_model extends MY_Model
         $mytags   = $this->input->post('mytags');
         $scripts  = $this->input->post('scripts');
 
-        $dados['titulo'] = campo_texto_utf8($titulo);
-        $dados['resumo'] = $resumo;
+        $dados['titulo'] = campo_texto_utf8(clean_html_to_db($titulo));
+        $dados['resumo'] = clean_html_to_db($resumo);
         $dados['dt_ini'] = formaSQL($data1);
+
         //        $dados['dt_fim'] = formaSQL($data2);
         //        $dados['hr_ini'] = $hora1;
         //        $dados['hr_fim'] = $hora2;
@@ -330,7 +331,7 @@ class Trabalhos_model extends MY_Model
         $dados['modulo_id']  = $var['co'];
         $dados['tags']       = $tags;
         $dados['status']     = $status;
-        $dados['txt']        = campo_texto_utf8($txt);
+        $dados['txt']        = campo_texto_utf8(clean_html_to_db($txt));
         $dados['rel']        = prep_rel_to_sql($rel);
         $dados['atualizado'] = date("Y-m-d H:i:s");
 
