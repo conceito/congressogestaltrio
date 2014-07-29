@@ -26,7 +26,7 @@
 
 
 	<form action="<?php echo site_url('avaliacao/post_login'); ?>" class="form-horizontal -form-validate" method="post"
-	      id="frm_inscricao">
+	      id="frm_inscricao" autocomplete="off">
 
 		<fieldset>
 			<br/>
@@ -36,7 +36,7 @@
 
 				<div class="col-sm-8">
 					<input type="email" id="field_email" name="email" class="form-control" required value="<?php echo
-					set_value('email')?>">
+					set_value('email', '')?>" autocomplete="off">
 					<?php echo form_error('email') ?>
 				</div>
 			</div>

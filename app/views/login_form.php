@@ -23,9 +23,9 @@
 
 
 
-    <form action="<?php echo site_url('inscricao/post_login'); ?>" class="form-horizontal -form-validate" method="post"
-          id="frm_inscricao">
+    <form action="<?php echo site_url('usuario/post_login'); ?>" class="form-horizontal -form-validate" method="post">
 
+	    <input type="hidden" name="redirect" value="<?php echo (isset($redirect))? $redirect : ''?>"/>
         <fieldset>
             <br/>
 

@@ -6,7 +6,7 @@ $(document).ready(function(){
         submitHandler: function(){
 
             var email = $('#field_renew_email').val();
-            $.post(CMS.base_url + 'inscricao/passwordrenew', {
+            $.post(CMS.base_url + 'usuario/passwordrenew', {
                 email: email
             }).then(function(res){
 

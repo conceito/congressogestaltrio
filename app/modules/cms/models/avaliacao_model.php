@@ -159,6 +159,7 @@ class Avaliacao_model extends MY_Model
 		return $this->decorateCollection($qEvaluations->result_array(), $options);
 	}
 
+
 	private function decorateCollection($array, $options = array())
 	{
 		if (!is_array($array))

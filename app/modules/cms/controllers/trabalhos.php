@@ -209,7 +209,7 @@ class Trabalhos extends Cms_Controller
         $this->var     = $this->uri->to_array(array('offset', 'pp', 'g', 'dt1', 'dt2', 'b', 'stt', 'tip', 'co', 'id', 'tab'));
         $this->_var    = $_var;
         $conteudo      = $this->trabalhos_model->find($this->var);
-//dd($conteudo);
+
         /*
          * ASSETS
          */
@@ -240,6 +240,7 @@ class Trabalhos extends Cms_Controller
         /*
          * PROCESSA
          */
+	    $congress = new \Gestalt\Congresso5();
         //        dd($conteudo);
         $this->dados['row']    = $conteudo; // dados de conteúdo
         $this->dados['botoes'] = $this->botoes;
@@ -247,7 +248,13 @@ class Trabalhos extends Cms_Controller
         $this->dados['c']      = $this->c;
         $this->dados['metas']  = $this->trabalhos_model->getPostMetas($this->var);
 
-        $this->tabs['tab_title'][] = 'Dados do trabalho';
+
+	    $this->dados['modalidade_id'] = get_meta($this->dados['metas'], 'modalidade', null, true);
+	    $this->dados['modalidades'] = $congress->allModalidades();
+	    $this->dados['tema_id'] = get_meta($this->dados['metas'], 'eixo_tematico', null, true);
+	    $this->dados['temas'] = $congress->allTemas();
+
+	    $this->tabs['tab_title'][] = 'Dados do trabalho';
         $this->tabs['tab_contt'][] = $this->load->view('cms' . $this->getNamespace() . 'edita', $this->dados, true);
         $this->tabs['tab_title'][] = 'Autores';
         $this->tabs['tab_contt'][] = $this->load->view('cms' . $this->getNamespace() . 'autores', $this->dados, true);

@@ -1003,8 +1003,7 @@ class Cms_libs {
         } 
         // senão, faz pesquisa simples
         else {
-            $this->ci->db->from($tb)
-                    ->where('id', $id);
+            $this->ci->db->from($tb)->where('id', $id);
         }
       
         

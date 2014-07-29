@@ -3,11 +3,7 @@
 
 <div id="page" class="outra-classe">
 
-    <h1 class="page-title">INSCRIÇÃO de trabalho</h1>
-
-    <p>Olá, <?php echo $user['nome']?>. <br/>
-<!--        Todos os campos são obrigatórios.-->
-    </p>
+    <h1 class="page-title">Atualização de trabalho</h1>
 
 
     <?php if ($this->msg): ?>
@@ -17,18 +13,10 @@
     <?php endif; ?>
 
 
-    <?php
 
-    if($canSubmit):
-
-    ?>
-
-
-
-
-    <form action="<?php echo site_url('inscricao/post_trabalho'); ?>" class="-form-horizontal -form-validate"
+    <form action="<?php echo site_url('usuario/post_trabalho/'.$job['id']); ?>" class="-form-horizontal -form-validate"
           method="post"
-          id="frm_trabalho">
+          id="frm_trabalho_update">
 
         <?php
         /**
@@ -49,7 +37,10 @@
                     <?php
                     foreach($temas as $t):
                     ?>
-                        <option value="<?php echo $t['id']?>"><?php echo $t['title']?></option>
+                        <option value="<?php echo $t['id']?>" <?php echo ($t['id'] == $eixo_tematico_id) ? 'selected'
+	                        : ''?>><?php
+	                        echo
+	                        $t['title']?></option>
                     <?php
                     endforeach;
                     ?>
@@ -68,7 +59,8 @@
                     <?php
                     foreach($modalidades as $m):
                         ?>
-                        <option value="<?php echo $m['id']?>"><?php echo $m['title']?></option>
+                        <option value="<?php echo $m['id']?>" <?php echo ($m['id'] == $modalidade_id) ? 'selected'
+	                        : ''?>><?php echo $m['title']?></option>
                     <?php
                     endforeach;
                     ?>
@@ -83,7 +75,7 @@
                 <label class="control-label" for="field_titulo">Título</label>
 
                 <input type="text" id="field_titulo" name="titulo" class="form-control basic-editor" value="<?php echo
-                set_value('titulo')?>" data-editor-limit="130">
+                set_value('titulo', $job['titulo'])?>" data-editor-limit="130">
                 <div id="field_titulo_countBox" class="count-box-bag">
                     <span class="count-label">limite: </span>
                     <span class="countBox">130</span>
@@ -97,7 +89,7 @@
                 <label class="control-label" for="field_subtitulo">Subtítulo</label>
 
                 <input type="text" id="field_subtitulo" name="subtitulo" class="form-control  basic-editor" value="<?php
-                echo set_value('subtitulo')?>" data-editor-limit="130" data-editor-height="40">
+                echo set_value('subtitulo', $job['subtitulo'])?>" data-editor-limit="130" data-editor-height="40">
                 <div id="field_subtitulo_countBox" class="count-box-bag">
                     <span class="count-label">limite: </span>
                     <span class="countBox">130</span>
@@ -111,7 +103,8 @@
                 <label class="control-label" for="field_resumo">Resumo</label>
 
                 <textarea name="resumo1" id="field_resumo" cols="30" rows="6"
-                          class="form-control basic-editor" data-editor-limit="700"><?php echo set_value('resumo1')
+                          class="form-control basic-editor" data-editor-limit="700"><?php echo set_value('resumo1',
+		                $job['resumo'])
                     ?></textarea>
                 <div id="field_resumo_countBox" class="count-box-bag">
                     <span class="count-label">limite: </span>
@@ -125,92 +118,62 @@
                 <label class="control-label" for="field_palavras_chave">Palavras-chave</label>
 
                 <input type="text" id="field_palavras_chave" name="palavras_chave" class="form-control" required
-                       value="<?php echo set_value('palavras_chave') ?>">
+                       value="<?php echo set_value('palavras_chave', $job['tags']) ?>">
                 <div class="help-block">De 03 a 05 palavras, em letras minúsculas, separadas por ponto e vírgula.</div>
                 <?php echo form_error('palavras_chave') ?>
             </div>
 
             <ul class="nav nav-tabs">
-                <li class="active"><a href="#autor-1" data-toggle="tab" data-author-tab="1">Autor (1)</a></li>
-                <li class=""><a href="#autor-2" data-toggle="tab" data-author-tab="2">Autor (2)</a></li>
-                <li class=""><a href="#autor-3" data-toggle="tab" data-author-tab="3">Autor (3)</a></li>
-                <li><a href="#" class="add-author-tab" title="Adicionar autor">+</a></li>
+	            <?php
+	            // loop through autors
+	            foreach($job['autores'] as $index => $a):
+		            $i = $index + 1;
+	            ?>
+                <li class="<?php echo ($i==1)?'active':''?>"><a href="#autor-<?php echo $i?>" data-toggle="tab" data-author-tab="<?php echo $i?>">Autor (<?php echo $i?>)
+	                </a></li>
+	            <?php
+	            endforeach;
+	            ?>
+
+
             </ul>
 
             <div class="tab-content">
-                <div class="tab-pane active" id="autor-1">
+	            <?php
+	            // loop through autors
+	            foreach($job['autores'] as $index => $a):
+		            $i = $index + 1;
+		            ?>
+		            <div class="tab-pane <?php echo ($i==1)?'active':''?>" id="autor-<?php echo $i?>">
 
-                    <div class="form-group <?php err('autor_nome_1') ?>">
-                        <label class="control-label" for="field_autor_nome_1">Nome do autor</label>
+			            <div class="form-group <?php err('autor_nome_'.$i) ?>">
+				            <label class="control-label" for="field_autor_nome_<?php echo $i?>">Nome do autor</label>
 
-                        <input type="text" id="field_autor_nome_1" name="autor_nome_1" class="form-control" required
-                               value="<?php echo set_value('autor_nome_1') ?>">
-                        <?php echo form_error('autor_nome_1') ?>
-                    </div>
+				            <input type="text" id="field_autor_nome_<?php echo $i?>" name="autor_nome_<?php echo $i?>" class="form-control" required
+				                   value="<?php echo set_value('autor_nome_'.$i, $a['nome']) ?>">
+				            <?php echo form_error('autor_nome_'.$i) ?>
+			            </div>
 
-                    <div class="form-group <?php err('curriculo_1') ?>">
-                        <label class="control-label" for="field_curriculo_1">Minicurrículo</label>
+			            <div class="form-group <?php err('curriculo_'.$i) ?>">
+				            <label class="control-label" for="field_curriculo_<?php echo $i?>">Minicurrículo</label>
 
-                        <textarea name="curriculo_1" id="field_curriculo_1" cols="30" rows="6"
-                                  class="form-control basic-editor" data-editor-limit="500"><?php echo set_value
-                            ('curriculo_1') ?></textarea>
-                        <div id="field_curriculo_1_countBox" class="count-box-bag">
-                            <span class="count-label">limite: </span>
-                            <span class="countBox">500</span>
-                        </div>
-                        <?php echo form_error('curriculo_1') ?>
+				            <textarea name="curriculo_<?php echo $i?>" id="field_curriculo_<?php echo $i?>" cols="30" rows="6"
+				                      class="form-control basic-editor" data-editor-limit="500"><?php echo set_value
+					            ('curriculo_'.$i, $a['curriculo']) ?></textarea>
+				            <div id="field_curriculo_<?php echo $i?>_countBox" class="count-box-bag">
+					            <span class="count-label">limite: </span>
+					            <span class="countBox">500</span>
+				            </div>
+				            <?php echo form_error('curriculo_'.$i) ?>
 
-                    </div>
+			            </div>
 
-                </div>
-                <div class="tab-pane" id="autor-2">
+		            </div>
+	            <?php
+	            endforeach;
+	            ?>
 
-                    <div class="form-group <?php err('autor_nome_2') ?>">
-                        <label class="control-label" for="field_autor_nome_2">Nome do segundo autor</label>
 
-                        <input type="text" id="field_autor_nome_2" name="autor_nome_2" class="form-control"
-                               value="<?php echo set_value('autor_nome_2') ?>">
-                        <?php echo form_error('autor_nome_2') ?>
-                    </div>
-
-                    <div class="form-group <?php err('curriculo_2') ?>">
-                        <label class="control-label" for="field_curriculo_2">Minicurrículo</label>
-
-                        <textarea name="curriculo_2" id="field_curriculo_2" cols="30" rows="6"
-                                  class="form-control basic-editor" data-editor-limit="500"><?php echo set_value
-                            ('curriculo_2') ?></textarea>
-                        <div id="field_curriculo_2_countBox" class="count-box-bag">
-                            <span class="count-label">limite: </span>
-                            <span class="countBox">500</span>
-                        </div>
-                        <?php echo form_error('curriculo_2') ?>
-                    </div>
-
-                </div>
-                <div class="tab-pane" id="autor-3">
-
-                    <div class="form-group <?php err('autor_nome_3') ?>">
-                        <label class="control-label" for="field_autor_nome_3">Nome do terceiro autor</label>
-
-                        <input type="text" id="field_autor_nome_3" name="autor_nome_3" class="form-control"
-                               value="<?php echo set_value('autor_nome_3') ?>">
-                        <?php echo form_error('autor_nome_3') ?>
-                    </div>
-
-                    <div class="form-group <?php err('curriculo_3') ?>">
-                        <label class="control-label" for="field_curriculo_3">Minicurrículo</label>
-
-                        <textarea name="curriculo_3" id="field_curriculo_3" cols="30" rows="6"
-                                  class="form-control basic-editor" data-editor-limit="500"><?php echo set_value
-                            ('curriculo_3') ?></textarea>
-                        <div id="field_curriculo_3_countBox" class="count-box-bag">
-                            <span class="count-label">limite: </span>
-                            <span class="countBox">500</span>
-                        </div>
-                        <?php echo form_error('curriculo_3') ?>
-                    </div>
-
-                </div>
             </div>
             <!-- tab-content-->
 
@@ -227,7 +190,8 @@
             <div class="form-group ">
 
                 <textarea name="proposta" id="field_proposta" cols="30" rows="20"
-                          class="form-control proposal-editor"><?php echo set_value('proposta') ?></textarea>
+                          class="form-control proposal-editor"><?php echo set_value('proposta',
+		                $job['txt']) ?></textarea>
 
                 <div id="charPropostaLimit" class="count-box-bag">
                     <span class="count-label">caracteres: </span>
@@ -243,12 +207,11 @@
 
 
         <div class="form-group">
-                <button type="submit" class="btn btn-success btn-block btn-lg">ENVIAR TRABALHO</button>
+                <button type="submit" class="btn btn-success btn-block btn-lg">ATUALIZAR TRABALHO</button>
         </div>
 
     </form>
 
-	<?php endif;?>
 
 
 </div>

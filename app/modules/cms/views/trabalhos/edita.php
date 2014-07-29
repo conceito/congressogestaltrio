@@ -24,7 +24,18 @@
     <div class="control-group -box">
 
         <label class="lb-full">Eixo temático</label>
-        <?php echo $row['eixo_tematico'];?>
+
+	    <select name="eixo_tematico" id="field_eixo_tematico" class="form-control" required style="width: 100%;">
+
+		    <?php
+		    foreach($temas as $t):
+			    ?>
+			    <option value="<?php echo $t['id']?>" <?php echo ($t['id'] == $tema_id) ? 'selected="selected"'
+				    : ''?>><?php echo $t['title']?></option>
+		    <?php
+		    endforeach;
+		    ?>
+	    </select>
 
     </div>
     <!-- .control-group -->
@@ -34,7 +45,19 @@
     <div class="control-group -box">
 
         <label class="lb-full">Modalidade do trabalho</label>
-        <?php echo $row['modalidade'];?>
+
+	    <select name="modalidade" id="field_modalidade" class="form-control" required style="width: 100%;">
+
+		    <?php
+		    foreach($modalidades as $m):
+			    ?>
+			    <option value="<?php echo $m['id']?>" <?php echo ($m['id'] == $modalidade_id) ? 'selected="selected"'
+				    : ''?>><?php echo
+				    $m['title']?></option>
+		    <?php
+		    endforeach;
+		    ?>
+	    </select>
 
     </div>
     <!-- .control-group -->

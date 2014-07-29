@@ -2,8 +2,8 @@ $(document).ready(function () {
 
     var num_authors = 1;
 
-    $('a[data-author-tab="2"]').hide();
-    $('a[data-author-tab="3"]').hide();
+    $('a[data-author-tab="2"]', '#frm_trabalho').hide();
+    $('a[data-author-tab="3"]', '#frm_trabalho').hide();
 
     $('.add-author-tab').on('click', function (e) {
         e.preventDefault();
