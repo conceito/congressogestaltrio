@@ -24,6 +24,20 @@ abstract class AbstractNotification extends CI_Model  implements NotificationInt
 
 
 	/**
+	 * By default just trigger the send() action.
+	 * If you need do some work before send, overwrite this method
+	 *
+	 * @return bool
+	 */
+	public function send()
+	{
+		return $this->service->send();
+	}
+
+
+
+
+	/**
 	 * array of users to receive notification
 	 * @param $users
 	 */
@@ -101,10 +115,16 @@ abstract class AbstractNotification extends CI_Model  implements NotificationInt
 	 * read notification template view
 	 *
 	 * @param $body Body string
+	 * @throws \Exception
 	 * @return string
 	 */
 	public function composeTemplate($body)
 	{
+		if (!view_exist('template/email'))
+		{
+			throw new \Exception("E-mail view (template/email) does not exist.");
+		}
+
 		$v['body'] = $body;
 
 		return $this->load->view('template/email', $v, true);

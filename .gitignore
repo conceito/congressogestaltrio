@@ -2,11 +2,10 @@ _dev/
 .idea/
 vendor/
 app/logs/*
-upl/arqs/*
-upl/imgs/*
+upl/*
 nbproject/
 app/config/
-app/logs/*
+
 ci_itens/uml/
 *.sublime-project
 *.sublime-workspace
@@ -17,3 +16,4 @@ tmp/
 *.tmp
 *.bak
 *.db
+*.log

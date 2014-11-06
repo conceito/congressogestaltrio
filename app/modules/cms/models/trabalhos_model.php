@@ -522,19 +522,24 @@ class Trabalhos_model extends MY_Model
 	 */
 	public function allByAuthor($authorId, $options = array())
 	{
-		//SELECT job.*, ava.valor, ava.status as aval_status
+		//SELECT job.id, ava.valor, ava.status as aval_status, form.txt as form_txt, grupo.nick as grupo_nick, grupo.titulo as grupo_titulo
 		//FROM congressogestaltrio.cms_conteudo as job
 		//INNER JOIN congressogestaltrio.cms_conteudo_rel as ava ON ava.conteudo_id = job.id
-		//where job.modulo_id = 66 and job.tipo = 'conteudo' and job.autor = 16 and ava.tipo = 'avaliacao'
+		//INNER JOIN congressogestaltrio.cms_conteudo as form ON form.rel =  ava.id
+		//INNER JOIN congressogestaltrio.cms_conteudo as grupo ON grupo.id = job.grupo
+		//where job.modulo_id = 66 and job.tipo = 'conteudo' and job.autor = 16 and ava.tipo = 'avaliacao' AND ava.status > 0
 		//GROUP BY job.id;
-		$this->db->select("job.*, ava.valor, ava.status as aval_status, grupo.nick as grupo_nick, grupo.titulo as grupo_titulo");
+
+		$this->db->select("job.*, ava.valor, ava.id as ava_id, ava.status as aval_status, grupo.nick as grupo_nick, grupo.titulo as grupo_titulo, form.txt as form_txt");
 		$this->db->from('cms_conteudo as job');
 		$this->db->join('cms_conteudo_rel as ava', 'ava.conteudo_id = job.id');
 		$this->db->join('cms_conteudo as grupo', 'grupo.id = job.grupo');
+		$this->db->join('cms_conteudo as form', 'form.rel =  ava.id');
 		$this->db->where('job.modulo_id', 66);
 		$this->db->where('job.tipo', 'conteudo');
 		$this->db->where('job.autor', $authorId);
 		$this->db->where('ava.tipo', 'avaliacao');
+		$this->db->where('ava.status > ', 0);// not canceled
 		$this->db->order_by('job.dt_ini DESC');
 		$this->db->group_by('job.id');
 		$qAuthorJobs = $this->db->get();
@@ -592,6 +597,15 @@ class Trabalhos_model extends MY_Model
 		{
 			$this->load->model('cms/avaliacao_model', 'avaliacao');
 			$item['valor_label'] = $this->avaliacao->getNotaLabel($item['valor'], $item['status']);
+		}
+
+
+		if(isset($item['form_txt']))
+		{
+			$unserializer = new \Gestalt\Trabalho\EvaluationUnserializer($item['form_txt']);
+
+			$item['evaluation'] = $unserializer->get();
+			$item['evaluation']['comments'] = $unserializer->getComments();
 		}
 
 		$this->load->library('cms_metadados');

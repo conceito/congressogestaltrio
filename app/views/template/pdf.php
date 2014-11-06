@@ -8,7 +8,7 @@
 	table.page_header {
 		width: 100%;
 		border: none;
-		background-color: #ffab09;
+		background-color: #eee;
 		padding: 2mm 10mm;
 	}
 	table.page_footer {

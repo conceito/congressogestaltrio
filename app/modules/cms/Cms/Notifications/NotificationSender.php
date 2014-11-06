@@ -19,6 +19,8 @@ class NotificationSender
 
 	private $ci;
 
+	private $mailerConfig = array();
+
 	private $mailer;
 
 	private $debug = false;
@@ -35,8 +37,11 @@ class NotificationSender
 	{
 		$this->ci           = & get_instance();
 		$this->notification = $notification;
+
 		$this->ci->load->library('e_mail');
 		$this->mailer = $this->ci->e_mail;
+
+		$this->mailerConfig = $this->ci->config->item('mailer');
 	}
 
 	public function send()
@@ -47,11 +52,20 @@ class NotificationSender
 		$sendEmail = $this->notification->getFromEmail();
 		$sendName  = $this->notification->getFromName();
 
+		/** @var boolean $ret */
+		$ret = false;
 
 		/**
 		 * if debugging overwrite
 		 */
-		if ($this->getDebug())
+		if ($this->getPrintBody())
+		{
+			$users = $this->notification->getUsers();
+
+			echo $this->parseMessageBody($menHTML, $users[0]);
+			exit;
+		}
+		else if ($this->getDebug())
 		{
 			$subject   = '[debug] ' . $subject;
 			$user      = array(
@@ -144,6 +158,16 @@ class NotificationSender
 	public function getDebug()
 	{
 		return $this->debug;
+	}
+
+	/**
+	 * Get printBody config
+	 * @see config/myConfig.php
+	 * @return boolean
+	 */
+	public function getPrintBody()
+	{
+		return $this->mailerConfig['print_body'];
 	}
 
 	/**

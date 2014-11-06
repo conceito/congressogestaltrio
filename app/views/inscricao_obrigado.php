@@ -62,7 +62,8 @@
             <tr>
                 <td valign="top">Data de vencimento:</td>
                 <td valign="top">
-                    <?php echo formaPadrao(next_valid_pay($table['to'])) ?>
+                    <?php //echo formaPadrao(next_valid_pay($table['to'])) ?>
+                    <?php echo formaPadrao($table['to']) ?>
 
                     <?php if($forma_pagamento == 'parcelado'):?>
                         <br/>As demais parcelas devem ser feitas no dia 10 dos meses seguintes.
@@ -81,6 +82,10 @@
                     R$ <?php echo formaBR($table['portion']['value']) ?></td>
             </tr>
             <?php endif;?>
+	        <tr>
+		        <td valign="top">Tipo:</td>
+		        <td valign="top"><?php echo ($grupo) ? 'Em grupo' : 'Individual'?></td>
+	        </tr>
         </table>
 
     </div>

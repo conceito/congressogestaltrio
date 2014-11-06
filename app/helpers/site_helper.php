@@ -126,7 +126,8 @@ if( !function_exists('is_home'))
     {
         $ci = &get_instance();
         $uri = $ci->uri->segment(1);
-        return ($uri == false || $uri == 'inicio') ? true : false;
+        $uri2 = $ci->uri->segment(2);
+        return ($uri == false || ($uri == 'inicio' && $uri2 === null)) ? true : false;
     }
 }
 
@@ -330,11 +331,16 @@ if (!function_exists('mybug')) {
         exit;
     }
     
-    function dd($var, $print = false)
-    {
-        mybug($var, $print);
-    }
 
+
+}
+
+if(! function_exists('dd'))
+{
+	function dd($var, $print = false)
+	{
+		mybug($var, $print);
+	}
 }
 
 if(!function_exists('d'))

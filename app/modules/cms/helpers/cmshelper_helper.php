@@ -459,7 +459,8 @@ if (!function_exists('campo_texto_utf8'))
         }
         else
         {
-            $saida = utf8_encode(html_entity_decode($str, ENT_NOQUOTES));
+//            $saida = utf8_encode(html_entity_decode($str, ENT_NOQUOTES));
+            $saida = html_entity_decode($str, ENT_NOQUOTES);
         }
         return $saida;
     }

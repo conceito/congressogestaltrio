@@ -220,7 +220,7 @@ class Usuario extends Frontend_Controller
 		$this->form_validation->set_rules('curriculo_2', 'Minicurrículo (2)', 'trim|callback_html_max_length[510]');
 		$this->form_validation->set_rules('autor_nome_3', 'Nome do autor (3)', 'trim');
 		$this->form_validation->set_rules('curriculo_3', 'Minicurrículo (3)', 'trim|callback_html_max_length[510]');
-		$this->form_validation->set_rules('proposta', 'Proposta', 'trim|required|callback_html_max_length[12000]');
+		$this->form_validation->set_rules('proposta', 'Proposta', 'trim|required|callback_html_max_length[20000]');
 
 		$this->form_validation->set_error_delimiters('<label class="error">', '</label>');
 
@@ -253,8 +253,13 @@ class Usuario extends Frontend_Controller
 			}
 			else
 			{
-				// @todo notification
-				//				$trabalho->notifyNewTrabalho($jobId, $this->input->post('debug_mode'));
+				// notification
+				$note = new \Gestalt\Notifications\JobWasUpdatedByUser();
+				$note->jobTitle(strip_tags($this->input->post('titulo')));
+				$user = $this->usuario->get_session();
+				$note->setUser($user['email'], $user['nome']);
+				$note->send();
+
 				$this->phpsess->save('msg_type', 'success');
 				$this->phpsess->save('msg', 'Trabalho atualizado com sucesso.');
 				redirect("usuario/trabalhos");

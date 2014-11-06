@@ -4,7 +4,9 @@
     "keywords": ["framework", "codeigniter", "cms"],
     "license": "MIT",
     "require": {
-	    "ensepar/html2pdf": "1.0.*@dev"
+	    "ensepar/html2pdf": "1.0.*@dev",
+	    "illuminate/database": "4.*",
+	    "patchwork/utf8": "1.1.*"
     },
     "require-dev": {
 
@@ -13,10 +15,11 @@
         "classmap": [
             "vendor/"
         ],
-        "psr-0": {
-            "Gestalt\\": "app/",
-            "Cms\\": "app/modules/cms/"
-        }
+	    "psr-4": {
+		    "Gestalt\\": "app/Gestalt",
+		    "Src\\": "src/",
+		    "Cms\\": "app/modules/cms/Cms"
+	    }
     },
     "scripts": {
     },

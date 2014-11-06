@@ -166,7 +166,7 @@ class Avaliador_model extends MY_Model
 		$user = $this->find($userId);
 
 		// check if the evaluator is already evaluating this job
-		$evaluations = $this->getEvaluationsByUser($userId, $jobId);
+		$evaluations = $this->getEvaluationsByUser($userId, $jobId, 2);
 
 		if ($evaluations)
 		{
@@ -257,7 +257,7 @@ class Avaliador_model extends MY_Model
 	 * @param null $jobId If null return for all jobs
 	 * @return bool|array
 	 */
-	public function getEvaluationsByUser($userId = null, $jobId = null)
+	public function getEvaluationsByUser($userId = null, $jobId = null, $status = null)
 	{
 		if ($userId === null && $this->userFound)
 		{
@@ -277,7 +277,14 @@ class Avaliador_model extends MY_Model
 		}
 
 		$this->db->where('tipo', 'avaliacao');
-		$this->db->where('status !=', 0);
+
+		if($status)
+		{
+			$this->db->where('status', $status);
+		} else
+		{
+			$this->db->where('status !=', 0);
+		}
 		$qEvaluations = $this->db->get('cms_conteudo_rel');
 
 		if ($qEvaluations->num_rows() == 0)

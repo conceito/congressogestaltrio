@@ -73,6 +73,14 @@ class Inscricao extends Frontend_Controller
 		$this->form_validation->set_rules('compl', 'Complemento', 'trim');
 		$this->form_validation->set_rules('pagamento', 'Instituição por onde fará o pagamento', 'trim|required');
 		$this->form_validation->set_rules('tipo_usuario', 'Você é', 'trim|required');
+
+		$tu = $this->input->post('tipo_usuario');
+		if($tu == 'profissional_grupo' || $tu == 'especializacao_grupo')
+		{
+			$this->form_validation->set_rules('nome_coord', 'Nome do coordenador', 'trim|required');
+			$this->form_validation->set_rules('email_coord', 'E-mail do coordenador', 'trim|required|valid_email');
+		}
+
 		$this->form_validation->set_rules('forma_pagamento', 'Forma de pagamento', 'trim|required');
 		$this->form_validation->set_rules('senha', 'Senha', 'trim|required|matches[confirmacao]');
 		$this->form_validation->set_rules('confirmacao', 'Confirmar senha', 'trim|required');
@@ -86,7 +94,6 @@ class Inscricao extends Frontend_Controller
 		 */
 		if ($this->form_validation->run() == false)
 		{
-
 			// salva erro na session
 			$this->phpsess->save('msg_type', 'error');
 			$this->phpsess->save('msg', 'Campos incorretos.');
@@ -128,10 +135,13 @@ class Inscricao extends Frontend_Controller
 
 		$user = $this->usuario->find($userId);
 
+		$tipo_usuario = get_meta($user['metas'], 'tipo_usuario', null, true);
+
 		$v['user']            = $user;
-		$v['table']           = $this->value_table->getByType(get_meta($user['metas'], 'tipo_usuario', null, true));
+		$v['table']           = $this->value_table->getByType($tipo_usuario);
 		$v['institution']     = $this->institution->getInstance(get_meta($user['metas'], 'pagamento', null, true));
 		$v['forma_pagamento'] = get_meta($user['metas'], 'forma_pagamento', null, true);
+		$v['grupo'] = (strpos($tipo_usuario, 'grupo')) ? true : false;
 		//        dd($v['institution']);
 		$this->title = 'Obrigado';
 		$this->corpo = $this->load->view('inscricao_obrigado', $v, true);
@@ -310,7 +320,7 @@ class Inscricao extends Frontend_Controller
 		$this->form_validation->set_rules('curriculo_2', 'Minicurrículo (2)', 'trim|callback_html_max_length[510]');
 		$this->form_validation->set_rules('autor_nome_3', 'Nome do autor (3)', 'trim');
 		$this->form_validation->set_rules('curriculo_3', 'Minicurrículo (3)', 'trim|callback_html_max_length[510]');
-		$this->form_validation->set_rules('proposta', 'Proposta', 'trim|required|callback_html_max_length[12000]');
+		$this->form_validation->set_rules('proposta', 'Proposta', 'trim|required|callback_html_max_length[20000]');
 
 		$this->form_validation->set_error_delimiters('<label class="error">', '</label>');
 

@@ -38,6 +38,16 @@ class Value_table{
             )
 
         ),
+        'profissional_grupo' => array(
+            // linha 1
+            array(
+                'from' => '2014-09-11',
+                'to' => '2014-10-17',
+                'value' => 282.00,
+                'portion' => array('times' => 2, 'value' => 141.00),
+                'type' => 'depósito'
+            )
+        ),
         'especializacao' => array(
             // linha 1
             array(
@@ -72,6 +82,16 @@ class Value_table{
                 'type' => 'dinheiro'
             )
         ),
+        'especializacao_grupo' => array(
+	        // linha 1
+	        array(
+		        'from' => '2014-09-11',
+		        'to' => '2014-10-17',
+		        'value' => 236.00,
+		        'portion' => array('times' => 2, 'value' => 118.00),
+		        'type' => 'depósito'
+	        )
+        ),
         'graduacao' => array(
             // linha 1
             array(
@@ -84,14 +104,14 @@ class Value_table{
             // linha 2
             array(
                 'from' => '2014-07-11',
-                'to' => '2014-09-12',
+                'to' => '2014-10-17',
                 'value' => 180.00,
                 'portion' => array('times' => 2, 'value' => 90.00),
                 'type' => 'depósito'
             ),
             // linha 3
-            array(
-                'from' => '2014-09-13',
+	        array(
+                'from' => '2014-10-18',
                 'to' => '2014-10-30',
                 'value' => 210.00,
                 'portion' => array('times' => 1, 'value' => 210.00),

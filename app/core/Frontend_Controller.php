@@ -34,7 +34,7 @@ class Frontend_Controller extends MY_Controller
 
         if (ENVIRONMENT == 'development' && !IS_AJAX)
         {
-            $this->output->enable_profiler(true);
+//            $this->output->enable_profiler(true);
 
         }
         else

@@ -34,8 +34,15 @@ interface NotificationInterface {
 	public function setSubject($subject);
 	public function getSubject();
 
+
 	/**
 	 * compose html body with template
+	 *
+	 * <code>
+	 * $body = 'Your body goes here...';
+	 * return $this->composeTemplate($body);
+	 * </code>
+	 *
 	 * @return mixed
 	 */
 	public function messageBody();

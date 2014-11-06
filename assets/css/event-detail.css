@@ -1,0 +1,134 @@
+body.ed-is-opened{
+    overflow: hidden;
+    padding-right: 20px;
+}
+
+.ed-backdrop{
+    top: 100%;
+   -webkit-transition: all .5s ease;
+    -moz-transition: all .5s ease;
+    transition: all .5s ease;
+}
+
+.ed-backdrop.open{
+    position: fixed;
+    
+    /* display: block; */
+    background-color: rgba(255, 255, 255, 0.8);
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 8888;
+    
+}
+
+
+.ed-card-wrapper {
+    position: fixed;
+    z-index: 9999;
+    font-size: .8em;
+    box-shadow: 0 0 20px #000;
+    background-color: #fff;
+    overflow: hidden;
+}
+
+.ed-card-wrapper .small-card{
+    -webkit-transition: all .3s;
+    -moz-transition: all .3s;
+    transition: all .3s;
+}
+
+.ed-card-wrapper.is-visible .small-card{
+    /* display: none; */
+    position: relative;
+    z-index: 1;
+}
+
+.ed-card-wrapper .small-card > *{
+    margin: 0 !important;
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+
+.ed-card-wrapper .close{
+    position: absolute;
+    right: 21px;
+    top: 3px;
+    margin: 2px 5px 0 0;
+    z-index: 27;
+}
+
+.ed-card-wrapper .content{
+    opacity:0;
+    font-size: 1.2em;
+    z-index: 9;
+    top: 100%;
+    /* min-height: 500px; */
+    overflow: auto;
+    position: relative;
+    -webkit-transition: all .5s ease;  
+    -moz-transition: all .5s ease;  
+    transition: all .5s ease;
+}
+
+.ed-card-wrapper.is-visible .content{
+    width: 100%;
+    background: rgb(250, 250, 250);
+    height: 100%;
+    padding: 20px;
+    opacity: 1;
+    top: 0;
+}
+
+
+
+
+.ed-card-wrapper .content .about {
+}
+
+.ed-card-wrapper .content .title {
+    margin: 0 0 10px;
+    color: rgb(64, 117, 33);
+}
+
+.ed-card-wrapper .content .title small{
+    color: rgb(64, 117, 33);
+}
+
+.ed-card-wrapper .content .excerpt {
+    color: rgb(64, 117, 33);
+}
+
+.ed-card-wrapper .content .authors {
+    margin: 20px 0 0 0;
+}
+
+.ed-card-wrapper .content .auth {
+    border: #eee solid 1px;
+    background-color: #fff;
+    padding: 10px;
+    margin: 0 0 20px;
+}
+
+.ed-card-wrapper .content .auth > h3 {
+    font-size: 1.3em;
+    margin: 0 0 10px;
+}
+
+.ed-card-wrapper .content .auth > p {
+}
+
+
+.panel-title{
+    font-weight: 700;
+    font-size: 1em;
+}
+
+.panel-title a{
+    display: block;
+}

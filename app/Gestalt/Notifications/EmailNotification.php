@@ -145,6 +145,60 @@ class EmailNotification
 
     }
 
+
+
+    /**
+     * send emails about job updated by users
+     *
+     * @see getUser()
+     * @see getTask()
+     * @throws \Exception
+     * @return bool
+     */
+    public function sendJobUpdated()
+    {
+        if (!$this->user || !$this->task)
+        {
+            throw new \Exception('Usuário ou trabalho não foram encontrados');
+        }
+        // compose message
+        $html = $this->composeMessageWithBody($this->composeNewTaskBody());
+
+        $user      = $this->getUser();
+        $subject   = "Trabalho enviado por: {$user['nome']}";
+        $menHTML   = $html;
+        $menTXT    = strip_tags($html);
+        $sendEmail = $this->ci->config->item('email1');
+        $sendName  = $this->ci->config->item('title');
+
+        /**
+         * if debugging overwrite
+         */
+        if ($this->isDebugging)
+        {
+            $subject   = '[debug] ' . $subject;
+            $user      = array(
+                'nome'  => 'degugger',
+                'email' => $this->ci->config->item('email_debug')
+            );
+            $sendEmail = $this->ci->config->item('email_debug');
+        }
+
+        //
+        //        echo $html;
+        //        exit;
+
+        $ret = $this->mailer->envia($user['email'], $user['nome'], $subject, $menHTML, $menTXT, $sendEmail, $sendName);
+
+        /*
+         * admin copy
+         */
+        $this->mailer->envia($sendEmail, $sendName, $subject, $menHTML, $menTXT, $user['email'], $user['nome']);
+
+        return $ret;
+
+    }
+
     /**
      * compose the body of new task message
      */

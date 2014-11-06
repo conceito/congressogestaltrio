@@ -361,6 +361,176 @@ form .invalid textarea{
 .count-box-bag .countBox {
 }
 
+
+.row-header{
+    background-color: #fff;
+    position: relative;
+    z-index: 3;
+    /* overflow: hidden; */
+    /* height: 130px; */
+}
+
+
+.row-content{}
+
+
+
+
+
+/*
+|=================================================================================
+|=================================================================================
+|=================================================================================
+|=================================================================================
+|=================================================================================
+|    TABLE SCHADULE
+|---------------------------------------------------------------------------------
+*/
+
+
+.table-schedule {
+}
+
+.table-schedule td{
+    position: relative;
+    font-size: 0.8em;
+}
+
+.table-schedule > thead {
+}
+
+.table-schedule > tbody {
+}
+
+.ts-day {
+}
+
+.ts-day > td {
+    background-color: #437527;
+    color: #fff;
+    font-weight: 700;
+    text-align: center;
+}
+
+.ts-day-date{
+    font-size: 1.6em;
+    padding-right: 20px;
+}
+
+.ts-day-week{}
+
+.ts-place {
+}
+
+.ts-place > td {
+    background-color: #FAFAFA;
+    font-size: 0.7em;
+    text-align: center;
+}
+
+.ts-place > td > br {
+}
+
+.ts-row {
+}
+
+.ts-row > td:not(:first-child){
+    width: 25%;
+}
+
+.ts-fullrow {
+}
+
+.ts-fullrow > td {
+    background-color: rgb(250, 250, 225);
+    text-align: center;
+    font-weight: 700;
+}
+
+.ts-time {
+    font-weight: 700;
+    text-align: center;
+    text-align: ce;
+    color: #999;
+    font-size: 1em !important;
+    background-color: transparent !important;
+}
+
+.activity:link,
+.activity:visited{
+    /* background-color: #F3F3F3; */
+    display: block;
+    /* position: absolute; */
+    color: #000;
+    margin: -8px -7px -8px -8px;
+    padding: 10px;
+    -webkit-transition: all .3s ease;
+    -moz-transition: all .3s ease;
+    transition: all .3s ease;
+}
+
+.activity:hover{    
+    z-index: 999;
+    position: relative;
+    text-decoration: none;
+}
+.table-schedule .activity:hover{
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.4), 0 5px 22px rgba(255, 255, 255, 0.67) inset;
+    -webkit-transform: translateY(-5px);
+    -moz-transform: translateY(-5px);
+    transform: translateY(-5px);
+    z-index: 999;
+}
+
+.activity-mr {
+    background-color: rgb(215, 243, 208);
+}
+
+
+.activity-mc {
+    background-color: rgb(255, 223, 142);
+}
+
+.activity-eg {
+    background-color: rgb(220, 245, 175);
+}
+
+.activity-ws {
+    background-color: rgb(253, 253, 164);
+}
+
+.activity-tl{  background-color: rgb(183, 241, 230);}
+
+.activity .code {
+    display: block;
+    font-weight: 700;
+    color: #6D6D6D;
+}
+
+.activity .subject {
+    display: block;
+    font-weight: 700;
+}
+
+.activity .authors {
+    display: block;
+    font-style: italic;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /* ==========================================================================
    *
    * mNNNNNNNNm     
@@ -461,6 +631,21 @@ form .invalid textarea{
 .logo{
     position: fixed;
     width: 280px;
+}
+
+.theme-full .logo{
+    position: fixed;
+    width: 400px;
+    top: 0;
+    background-color: #fff;
+    margin: 0;
+    padding: 10px 0 0 0;
+}
+
+.theme-full .logo img{
+    width: 79px;
+    float: left;
+    margin: 0 0 0 10px;
 }
 
 }/*/mediaquery*/

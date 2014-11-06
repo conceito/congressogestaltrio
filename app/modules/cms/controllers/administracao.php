@@ -754,7 +754,7 @@ class Administracao extends Cms_Controller {
     {
         $this->load->library(array('cms_libs'));
 
-        $prefs2 = array('format' => 'gzip', // gzip, zip, txt
+        $prefs2 = array('format' => 'txt', // gzip, zip, txt
             'filename' => 'mybackup.sql', // File name - NEEDED ONLY WITH ZIP FILES
             'add_drop' => true, // Whether to add DROP TABLE statements to backup file
             'add_insert' => true, // Whether to add INSERT data to backup file
@@ -762,7 +762,7 @@ class Administracao extends Cms_Controller {
         );
         // nome do arquivo
         $ver = $this->config->item('cms_ver');
-        $nome_arq = date("Y-m-d") . '_MeuCMS_v' . $ver . '.gz';
+        $nome_arq = date("Y-m-d") . '_MeuCMS_v' . $ver . '.sql';
         // Load the DB utility class
         $this->load->dbutil();
         // Backup your entire database and assign it to a variable

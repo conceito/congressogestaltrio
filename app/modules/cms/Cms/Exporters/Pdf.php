@@ -21,7 +21,7 @@ abstract class Pdf
 
 	protected $debug = false;
 
-	/**	 *
+	/**     *
 	 *  I : send the file inline to the browser (default).
 	 * The plug-in is used if available.
 	 * The name given by name is used when one selects the "Save as" option on the link generating the PDF.
@@ -34,7 +34,6 @@ abstract class Pdf
 	 *  false => S
 	 */
 	protected $outputMode = 'I';
-
 
 
 	/**
@@ -62,20 +61,32 @@ abstract class Pdf
 	 */
 	private $margin;
 
+	/**
+	 * @var string
+	 */
+	private $font = 'Arial';
 
-	function __construct($orientation = 'P', $format = 'A4', $lang='pt', $unicode=true, $encoding='UTF-8',
-	                     $margin = array(0,0,0,0))
+	/**
+	 * @var array
+	 */
+	private $outputtedFiles = array();
+
+
+	function __construct(
+		$orientation = 'P', $format = 'A4', $lang = 'pt', $unicode = true, $encoding = 'UTF-8',
+		$margin = array(0, 0, 0, 0)
+	)
 	{
-		$this->ci = & get_instance();
+		$this->ci = &get_instance();
 
 		$this->setSavePath(fisic_path() . $this->ci->config->item('upl_arqs'));
 
 		$this->orientation = $orientation;
-		$this->format = $format;
-		$this->lang = $lang;
-		$this->unicode = $unicode;
-		$this->encoding = $encoding;
-		$this->margin = $margin;
+		$this->format      = $format;
+		$this->lang        = $lang;
+		$this->unicode     = $unicode;
+		$this->encoding    = $encoding;
+		$this->margin      = $margin;
 	}
 
 	public function setArrayContent($arrayOfContents = array())
@@ -134,9 +145,23 @@ abstract class Pdf
 		{
 			$pdf->setModeDebug();
 		}
-		$pdf->setDefaultFont('Arial');
+
+		// store file
+		$this->addOutputtedFile($this->getSavePath() . $pdfName . '.pdf');
+		$pdf->setDefaultFont($this->getFont());
 		$pdf->writeHTML($this->getPdfContent(), false);
-		$pdf->Output($this->getSavePath() . '/' . $pdfName .'.pdf', $this->outputMode);
+
+		// move to destination folder
+		if (strpos($this->outputMode, 'F') !== false)
+		{
+			$pdf->Output($this->getSavePath().$pdfName . '.pdf', $this->outputMode);
+		}
+		else
+		{
+			$pdf->Output($pdfName . '.pdf', $this->outputMode);
+		}
+
+		unset($pdf);
 	}
 
 	/**
@@ -178,11 +203,12 @@ abstract class Pdf
 	}
 
 	/**
+	 * return fisic path
 	 * @return string
 	 */
 	public function getSavePath()
 	{
-		return $this->savePath;
+		return fisic_path() . rtrim($this->savePath, '/') . '/';
 	}
 
 	/**
@@ -193,12 +219,56 @@ abstract class Pdf
 		$this->debug = $debug;
 	}
 
+
 	/**
+	 * Send the document to a given destination: string, local file or browser.
+	 * Dest can be :
+	 *  I : send the file inline to the browser (default). The plug-in is used if available. The name given by name is used when one selects the "Save as" option on the link generating the PDF.
+	 *  D : send to the browser and force a file download with the name given by name.
+	 *  F : save to a local server file with the name given by name.
+	 *  S : return the document as a string. name is ignored.
+	 *  FI: equivalent to F + I option
+	 *  FD: equivalent to F + D option
+	 *  true  => I
+	 *  false => S
+	 *
 	 * @param mixed $outputMode
 	 */
 	public function setOutputMode($outputMode = 'I')
 	{
 		$this->outputMode = $outputMode;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getFont()
+	{
+		return $this->font;
+	}
+
+	/**
+	 * @param string $font
+	 */
+	public function setFont($font)
+	{
+		$this->font = $font;
+	}
+
+	/**
+	 * @return array
+	 */
+	public function getOutputtedFiles()
+	{
+		return $this->outputtedFiles;
+	}
+
+	/**
+	 * @param array $outputtedFiles
+	 */
+	public function addOutputtedFile($outputtedFiles)
+	{
+		$this->outputtedFiles[] = $outputtedFiles;
 	}
 
 }

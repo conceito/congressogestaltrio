@@ -283,7 +283,8 @@ class Trabalhos extends Cms_Controller
 
 
 		try{
-			$pdf = new \Cms\Exporters\AllJobsExport();
+//			$pdf = new \Cms\Exporters\AllJobsExport();
+			$pdf = new \Cms\Exporters\IndividualJobsToPdfExport();
 			$pdf->make();
 		}catch (Exception $e)
 		{

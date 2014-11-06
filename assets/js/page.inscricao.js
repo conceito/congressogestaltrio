@@ -120,6 +120,36 @@ $(document).ready(function(){
 
     });
 
+	/**
+	 * Group of fields to coordinator person
+	 * @type {*|jQuery|HTMLElement}
+	 */
+	var Tipousuario = (function(){
+
+		var formcoord = $('.form-coord');
+		var tipousuario = $('#field_tipo_usuario');
+
+		checkForm(tipousuario.val());
+
+		function checkForm(value){
+			if(value == 'profissional_grupo' || value == 'especializacao_grupo'){
+				formcoord.slideDown();
+			} else {
+				formcoord.slideUp();
+			}
+		}
+
+		tipousuario.on('change', function(){
+			var self = $(this);
+
+			checkForm(self.val());
+
+		});
+
+	})();
+
+
+
 
 });
 
